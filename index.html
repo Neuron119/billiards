@@ -37,9 +37,13 @@
 @media(max-width:760px){.intro-actions{justify-items:stretch;gap:6px}.rules{display:grid;grid-template-columns:auto repeat(3,minmax(0,1fr))}.rule{padding:0 4px}.rule-options select{min-height:29px}.play-grid.is-full .spin-panel .spin-copy strong{font-size:11px}}
 @media(max-width:380px){.play-grid.is-full .stage-foot{flex-wrap:wrap}.play-grid.is-full .stage-hint{flex:1 1 152px}.stage-score{font-size:9px}.play-grid.is-full .spin-copy small{font-size:9px}}
 
-.canvas-zone #table{position:absolute;inset:0}.canvas-zone #numbers{position:absolute;inset:0;z-index:1;pointer-events:none}.stage-head,.stage-foot{z-index:2}
-.setting-row{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#a2b5a8;font-size:11px}.setting-row select{min-height:29px;border:1px solid #3a5141;border-radius:6px;background:#15241c;color:#def3df;font:inherit;padding:2px 8px}.practice-lab{display:grid;gap:5px;border-top:1px solid #2a3a32;padding-top:9px}.practice-lab[hidden],.practice-lab [hidden]{display:none}.lab-actions{display:flex;gap:5px}.lab-actions .quiet{min-height:27px;font-size:11px;padding-inline:8px}.lab-readout{color:#bad4be;font-size:11px;line-height:1.5}.play-grid.is-full .practice-lab{display:none}.number-toggle{font-variant-numeric:tabular-nums}.number-toggle[data-mode="clear"]{color:var(--lime)}
+.canvas-zone #table{position:absolute;inset:0}.stage-head,.stage-foot{z-index:2}
+.setting-row{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#a2b5a8;font-size:11px}.setting-row select{min-height:29px;border:1px solid #3a5141;border-radius:6px;background:#15241c;color:#def3df;font:inherit;padding:2px 8px}.practice-lab{display:grid;gap:5px;border-top:1px solid #2a3a32;padding-top:9px}.practice-lab[hidden],.practice-lab [hidden]{display:none}.lab-actions{display:flex;gap:5px}.lab-actions .quiet{min-height:27px;font-size:11px;padding-inline:8px}.lab-readout{color:#bad4be;font-size:11px;line-height:1.5}.play-grid.is-full .practice-lab{display:none}
 @media(max-width:480px){.stage-label{font-size:8px;letter-spacing:.02em}.stage-head .tools{gap:3px}.stage-head .tool{padding-inline:6px}}
+.stage-foot .break-position{pointer-events:auto;flex:none;margin-left:auto;min-height:32px;padding:0 8px;white-space:nowrap;border-color:#4a644c;color:#c9f2b4}
+.stage-foot .break-position[hidden]{display:none}
+.player .pgroup.rotation-target{white-space:normal;line-height:1.25}
+@media(max-width:480px){.stage-foot .break-position{font-size:11px;padding-inline:6px}.stage[data-break="yes"] .stage-foot{gap:5px}.stage[data-break="yes"] .stage-hint{flex:0 1 auto}}
 </style>
 </head>
 <body>
@@ -72,15 +76,14 @@
     <button type="button" class="mode" data-mode="practice" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-aim"/></svg>自由练习</button>
   </div><div class="rules" role="group" aria-label="选择台球规则"><span class="rules-caption mono">RULES</span><button class="rule" type="button" data-rule="eight" aria-pressed="true">中八</button><button class="rule" type="button" data-rule="nine" aria-pressed="false">九球</button><button class="rule" type="button" data-rule="points" aria-pressed="false">九球追分</button></div></div></section>
   <div class="play-grid" id="play-grid">
-    <section class="stage" aria-label="台球桌">
-      <div class="canvas-zone"><canvas id="numbers" aria-hidden="true"></canvas><canvas id="table" tabindex="0" aria-label="台球桌。用指针或左右方向键瞄准，空格击球。">你的浏览器不支持 Canvas。</canvas></div>
+    <section class="stage" id="stage" aria-label="台球桌">
+      <div class="canvas-zone"><canvas id="table" tabindex="0" aria-label="台球桌。用指针或左右方向键瞄准，空格击球。">你的浏览器不支持 Canvas。</canvas></div>
       <div class="stage-head"><span class="stage-label" id="render-badge">3D · TABLE 01</span><div class="tools">
         <button type="button" class="tool" id="view" aria-pressed="false" title="切换视角（V）：透视 → 俯视 → 杆后" aria-label="切换视角：透视"><svg class="icon" aria-hidden="true"><use href="#i-view"/></svg><span>透视</span></button>
         <button type="button" class="tool" id="guide" aria-pressed="true" title="显示或隐藏辅助线（G）"><svg class="icon" aria-hidden="true"><use href="#i-aim"/></svg>辅助线</button>
-        <button type="button" class="tool number-toggle" id="number-mode" title="球号显示：自动">球号</button>
         <button type="button" class="tool" id="full" aria-label="进入全屏" aria-pressed="false" title="进入全屏（F）"><svg class="icon" aria-hidden="true"><use href="#i-full"/></svg><span class="full-text">全屏</span></button>
       </div></div>
-      <div class="stage-foot"><div class="stage-hint"><svg class="icon" aria-hidden="true"><use href="#i-aim"/></svg><span id="hint-mouse" class="mouse-only">移动鼠标瞄准 · 向后拖杆，松手击球</span><span id="hint-touch" class="touch-only">轻触球桌瞄准 · 向后拖杆，松手击球</span></div><div class="nudges" id="nudges" aria-label="精细瞄准" role="group"><button type="button" data-nudge="-1" aria-label="逆时针微调瞄准"><svg class="icon" aria-hidden="true"><use href="#i-left"/></svg></button><button type="button" data-nudge="1" aria-label="顺时针微调瞄准"><svg class="icon" aria-hidden="true"><use href="#i-right"/></svg></button></div><span class="stage-score" id="stage-score" hidden></span><div class="table-id" id="table-id">TABLE NO. 01 / 8-BALL</div></div>
+      <div class="stage-foot"><div class="stage-hint"><svg class="icon" aria-hidden="true"><use href="#i-aim"/></svg><span id="hint-mouse" class="mouse-only">移动鼠标瞄准 · 向后拖杆，松手击球</span><span id="hint-touch" class="touch-only">轻触球桌瞄准 · 向后拖杆，松手击球</span></div><button class="quiet break-position" type="button" id="break-position" hidden>开球位：中</button><div class="nudges" id="nudges" aria-label="精细瞄准" role="group"><button type="button" data-nudge="-1" aria-label="逆时针微调瞄准"><svg class="icon" aria-hidden="true"><use href="#i-left"/></svg></button><button type="button" data-nudge="1" aria-label="顺时针微调瞄准"><svg class="icon" aria-hidden="true"><use href="#i-right"/></svg></button></div><span class="stage-score" id="stage-score" hidden></span><div class="table-id" id="table-id">TABLE NO. 01 / 8-BALL</div></div>
       <div class="center-message" id="ending" hidden><div class="end-card"><div class="eyebrow">RACK COMPLETE</div><h2 id="end-title"></h2><p id="end-note"></p><button class="fire" id="again" type="button">再来一局</button></div></div>
     </section>
     <aside class="sidebar" aria-label="对局控制">
@@ -99,7 +102,7 @@
         <div class="lab-actions" id="lab-actions" hidden><button class="quiet" id="lab-replay" type="button">重摆球位</button><button class="quiet" id="lab-demo" type="button">打预设杆</button></div>
         <output class="lab-readout" id="lab-readout" hidden></output>
       </div>
-      <div class="status" id="status" role="status" aria-live="polite"><span class="signal" aria-hidden="true"></span><div><strong id="status-title">你来开球</strong><p id="status-note">已对准球堆；也可以调整角度后开球。</p></div></div>
+      <div class="status" id="status" role="status" aria-live="polite"><span class="signal" aria-hidden="true"></span><div><strong id="status-title">你来开球</strong><p id="status-note">已瞄准球堆头球；可换开球位，或直接开球。</p></div></div>
       <div class="shoot-panel"><div class="section-line"><span>拉杆力度</span><output for="pullpad" id="power-value">0%</output></div><div class="spin-panel"><button type="button" class="spin-pad" id="spin-pad" aria-label="母球击球点：方向键调整，Home 回正" title="点按或拖动选击球点；也可用方向键和 Home"><i class="spin-ring" aria-hidden="true"></i><i class="spin-dot" aria-hidden="true"></i></button><div class="spin-copy"><strong>母球击球点</strong><small id="spin-name">中杆</small><small>上下高低杆 · 左右加塞</small></div><button class="spin-reset" type="button" id="spin-reset">回正</button></div><button type="button" class="pullpad" id="pullpad" aria-label="辅助拉杆区：向下或向右拖动，松手击球"><svg class="icon" aria-hidden="true"><use href="#i-fire"/></svg><span>备用拉杆区 · 向下或向右拖</span></button><button type="button" class="fire" id="fire"><svg class="icon" aria-hidden="true"><use href="#i-fire"/></svg><span>快速击球</span><kbd class="mouse-only" aria-hidden="true">SPACE</kbd></button></div>
       <button type="button" class="reset" id="reset"><svg class="icon" aria-hidden="true"><use href="#i-reset"/></svg>重新开局</button>
     </aside>
@@ -107,10 +110,10 @@
   <footer class="underbar"><div class="keys mouse-only"><span><kbd>←</kbd><kbd>→</kbd>微调瞄准</span><span><kbd>↑</kbd><kbd>↓</kbd>键盘拉杆</span><span><kbd>V</kbd>切换视角</span><span><kbd>F</kbd>全屏</span></div><span class="touch-only">点球桌瞄准；也可用备用拉杆区出杆。</span><span class="offline">OFFLINE PLAY</span></footer>
 </main>
 <dialog id="help-dialog" aria-labelledby="help-title"><div class="dialog-title"><h2 id="help-title">玩法说明</h2><button type="button" class="quiet" data-close="help-dialog" aria-label="关闭说明"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div>
-<h3 class="dialog-sub">瞄准与击球</h3><ul class="help-list"><li><strong>电脑：</strong>移动鼠标瞄准，点击锁定，再点桌面可重新瞄准。按住球杆沿杆身向后拉，拉得越远力度越大，松手即击球。<kbd>←</kbd> <kbd>→</kbd> 微调，按住 <kbd>Shift</kbd> 更精细；<kbd>↑</kbd> <kbd>↓</kbd> 键盘拉杆，<kbd>Space</kbd> 击球。杆后视角中向屏幕下方拉杆。</li><li><strong>手机：</strong>轻触球桌瞄准，按住杆身向后拖，松手击球。杆靠近屏幕边缘时，可以在「备用拉杆区」向下或向右拖，力度同样取决于拖动距离。右下方的左右小按钮可以微调。竖屏全屏时球桌会纵向显示，横屏时铺宽。</li><li><strong>辅助：</strong><kbd>V</kbd> 在透视、俯视、杆后间切换，<kbd>F</kbd> 进出全屏，<kbd>G</kbd> 开关辅助线。杆后视角请在球桌空处左右拖动瞄准。虚线和空心圈表示第一撞击点，绿色线表示目标球的初始去向；加塞瞄向库边时，浅蓝线预估母球的反弹方向。「球号」可在自动（远处补字）、清晰（一直补字）与仅球面之间切换。</li><li><strong>击球点：</strong>点击或拖动右侧的母球来选择击球点：向上是高杆、向下是低杆、左右是左塞和右塞，可以组合。这里调整的是皮头打在母球的哪个位置，不改变球杆朝向或拉杆力度。高杆可跟球，低杆可回拉，左右塞主要改变母球撞库后的出射角。</li></ul>
+<h3 class="dialog-sub">瞄准与击球</h3><ul class="help-list"><li><strong>开球：</strong>每局轮换默认开球位。用球桌下方的「开球位」在中、左、右之间切换，球杆会重新瞄向头球，也可以手动瞄准。直接点「开球」或按 <kbd>Space</kbd> 使用默认力度，拉杆则按实际力度出杆。</li><li><strong>电脑：</strong>移动鼠标瞄准，点击锁定，再点桌面可重新瞄准。按住球杆沿杆身向后拉，拉得越远力度越大，松手即击球。<kbd>←</kbd> <kbd>→</kbd> 微调，按住 <kbd>Shift</kbd> 更精细；<kbd>↑</kbd> <kbd>↓</kbd> 键盘拉杆，<kbd>Space</kbd> 击球。杆后视角中向屏幕下方拉杆。</li><li><strong>手机：</strong>轻触球桌瞄准，按住杆身向后拖，松手击球。杆靠近屏幕边缘时，可以在「备用拉杆区」向下或向右拖，力度同样取决于拖动距离。右下方的左右小按钮可以微调。竖屏全屏时球桌会纵向显示，横屏时铺宽。</li><li><strong>辅助：</strong><kbd>V</kbd> 在透视、俯视、杆后间切换，<kbd>F</kbd> 进出全屏，<kbd>G</kbd> 开关辅助线。杆后视角请在球桌空处左右拖动瞄准。虚线和空心圈表示第一撞击点，绿色线表示目标球的初始去向；加塞瞄向库边时，浅蓝线预估母球的反弹方向。球面不标数字；九球和九球追分里，金圈标示当前必须先碰的球。</li><li><strong>击球点：</strong>点击或拖动右侧的母球来选择击球点：向上是高杆、向下是低杆、左右是左塞和右塞，可以组合。这里调整的是皮头打在母球的哪个位置，不改变球杆朝向或拉杆力度。高杆可跟球，低杆可回拉，左右塞主要改变母球撞库后的出射角。</li></ul>
 <h3 class="dialog-sub">固定球位测试</h3><ul class="help-list"><li>进入「自由练习」，用「固定球位」选择项目。按「打预设杆」可复现同样的击球点、角度和力度。「重摆球位」保留你当前的击球点和力度，适合比较同一球位的左塞与右塞。摩擦参数参考实测研究（Mathavan 等，2009），袋口尺寸参考 WPA；结果为游戏模拟值，未针对某张实桌校准。</li></ul>
 <h3 class="dialog-sub">简化八球规则</h3><ul class="help-list"><li>开球进球可继续，但球桌仍开放。开球后，首次合法打进的 1–7 号或 9–15 号球决定你的花色；打进己方球就续杆。</li><li>母球入袋、没碰到球、先碰错组球或在开放球桌先碰黑 8，均算犯规。对手可在球桌上摆放母球。</li><li>清空己方花色后，下一杆合法打进黑 8 获胜。提前打进黑 8，或打进黑 8 时犯规，会输掉本局。开球进黑 8 则重摆。无需报袋，不判碰库犯规。</li><li>自由练习可以打任意球，没有输赢判罚；母球入袋后可以重新摆放。</li></ul>
-<h3 class="dialog-sub">九球与九球追分</h3><ul class="help-list"><li><strong>九球：</strong>每杆（含开球）先碰桌上最小号球，可以靠组合球打进其他号码。合法打进 9 号球即获胜；犯规进 9 要重摆 9 号球，对手获得自由球。不判碰库犯规，不设推杆。</li><li><strong>九球追分（本游戏积分版）：</strong>仍需先碰最小号球。1–8 号各 1 分，9 号 2 分；犯规该杆不计分，下一位拿自由球。合法进 9 后重摆一盘，积分延续、开球者轮换。先达到所选目标分获胜。「本地对战」可选 2 人或 3 人。</li></ul>
+<h3 class="dialog-sub">九球与九球追分</h3><ul class="help-list"><li><strong>九球：</strong>每杆（含开球）先碰桌上最小号球，可以靠组合球打进其他号码。合法打进 9 号球（黄花色）即获胜；犯规进 9 要重摆 9 号球，对手获得自由球。不判碰库犯规，不设推杆。</li><li><strong>九球追分（本游戏积分版）：</strong>仍需先碰最小号球。1–8 号各 1 分，9 号 2 分；犯规该杆不计分，下一位拿自由球。合法进 9 后重摆一盘，积分延续、开球者轮换。先达到所选目标分获胜。「本地对战」可选 2 人或 3 人。</li></ul>
 </dialog>
 <dialog id="confirm-dialog" aria-labelledby="confirm-title"><div class="dialog-title"><h2 id="confirm-title">重新开局？</h2><button type="button" class="quiet" data-close="confirm-dialog" aria-label="取消"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div><p class="dialog-copy" id="confirm-note">当前球局将不会保留。</p><div class="dialog-buttons"><button class="quiet" data-close="confirm-dialog" type="button" autofocus>继续本局</button><button class="fire" id="confirm-yes" type="button">确认</button></div></dialog>
 <script>
@@ -121,7 +124,14 @@ const clamp=(a,lo,hi)=>Math.max(lo,Math.min(hi,a)), lerp=(a,b,t)=>a+(b-a)*t;
 // 3.20 world units represent 2.54 m. Friction baseline: Mathavan et al. (2009),
 // DOI 10.1119/1.3157159 (measured snooker and cited pool ranges); not a fitted table profile.
 const PI=Math.PI, TAU=2*PI, R=.036, L=1.60, W=.80, D=2*R, DT=1/240, STOP=.012, METERS=2.54/3.20, GRAV=9.81/METERS, SLIDE=.20*GRAV, ROLL=.016*GRAV;
-const NOSE=D*.635;
+const NOSE=D*.635, HEAD_X=-.92, BREAK_POWER=90;
+// Keep all three starts on the head string. A slight cut, shown by the cue
+// and guide, avoids the same dead-center collision on every default break.
+const breakPositions=[{name:'中',z:0,cut:.0045},{name:'左',z:-.28,cut:.0045},{name:'右',z:.28,cut:-.0045}];
+function breakAngle(balls,position){
+  const [cue,apex]=balls;
+  return Math.atan2(apex.z-cue.z,apex.x-cue.x)+breakPositions[position].cut;
+}
 // Mouth widths and shelf depths follow approximate WPA equipment dimensions; contact and capture remain a planar model.
 const pockets=[[-1.619,-.821],[0,-.847],[1.619,-.821],[-1.619,.821],[0,.847],[1.619,.821]].map(([x,z],i)=>({x,z,r:i%3===1?.086:.091,drop:i%3===1?.073:.082,nx:x?Math.sign(x)*Math.SQRT1_2:0,nz:Math.sign(z)*(x?Math.SQRT1_2:1),shelf:x?-.050:-.036}));
 const walls=[], cushions=[];
@@ -141,6 +151,9 @@ for(const s of [-1,1]){
 const COLORS=['#f2eee1','#f9bc31','#2d5ac9','#d93428','#7740b9','#f57821','#168950','#7b2139','#12151c'];
 const rgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255);
 const colorOf=n=>COLORS[n>8?n-8:n], group=n=>n>0&&n<8?1:n>8?2:0;
+const colorNames=['白','黄','蓝','红','紫','橙','绿','酒红','黑'];
+const ballName=n=>`${n} 号（${colorNames[n>8?n-8:n]}${n>8?'花色':n===8?'':'全色'}）`;
+const TARGET_RING='#ffd575';
 const groupName=g=>g===1?'全色':g===2?'花色':'尚未分组';
 const descriptions=['以直球为主，能进球但容易把母球打过头。','选择简单进球和防守，力度偶尔失准。','模拟高低杆、翻袋、解球与安全球。','模拟不同击球点，比较进攻、走位和对手的机会。'];
 const styles={balanced:{name:'均衡',pot:1,leave:1,defense:1},attack:{name:'进攻',pot:1.30,leave:.91,defense:.54},defense:{name:'防守',pot:.82,leave:1.10,defense:1.62}};
@@ -149,14 +162,13 @@ const rules={eight:{name:'中八',tag:'8-BALL',blurb:'先清掉自己的花色�
 const pointValue=n=>n===9?2:1;
 const lowest=balls=>balls.reduce((a,b)=>b.n&&live(b)&&(!a||b.n<a.n)?b:a,null);
 function targetsFor(balls,g,rule=match.rule){const b=rule&&rule!=='eight'?lowest(balls):null;return rule&&rule!=='eight'?(b?[b]:[]):legalTargets(balls,g);}
-function focusText(){const b=lowest(match.balls);return b?`先碰 ${b.n} 号球。`:'球桌已清空。';}
+function focusText(){const b=lowest(match.balls);return b?`先碰 ${ballName(b.n)}，见桌上金圈。`:'球桌已清空。';}
 const read=(k,d)=>{try{return JSON.parse(localStorage.getItem('obsidian-'+k))??d}catch{return d}};
 const save=(k,v)=>{try{localStorage.setItem('obsidian-'+k,JSON.stringify(v))}catch{}};
 const rand=(a,b)=>a+Math.random()*(b-a);
 const savedStyle=read('ai-style','balanced');
-const numberModes=['auto','clear','surface'],numberNames={auto:'自动',clear:'清晰',surface:'仅球面'},savedNumbers=read('numbers','auto');
-const prefs={numbers:numberModes.includes(savedNumbers)?savedNumbers:'auto',style:Object.prototype.hasOwnProperty.call(styles,savedStyle)?savedStyle:'balanced',level:clamp(Number(read('difficulty',1))|0,0,3),mute:read('mute',false)===true,guide:read('guide',true)!==false,view:0,spin:{x:0,y:0}};
-let canvas=$('table'), labels=$('numbers'), numberCtx=labels.getContext('2d'), renderer, camera, aiAction=null, pending=null, accumulator=0;
+const prefs={style:Object.prototype.hasOwnProperty.call(styles,savedStyle)?savedStyle:'balanced',level:clamp(Number(read('difficulty',1))|0,0,3),mute:read('mute',false)===true,guide:read('guide',true)!==false,view:0,spin:{x:0,y:0}};
+let canvas=$('table'), renderer, camera, aiAction=null, pending=null, accumulator=0;
 let match={mode:'ai',rack:0,rule:'eight',seats:2,goal:21};
 const viewNames=['透视','俯视','杆后'],playGrid=$('play-grid'),full=$('full');
 const touching=navigator.maxTouchPoints>0||matchMedia('(any-pointer: coarse)').matches;document.documentElement.classList.toggle('is-touch',touching);
@@ -164,20 +176,21 @@ let fullMode=false;
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const live=b=>!b.dead;
 function initialRotation(n){
-  if(!n)return [0,0,0,1];
-  const y=.88-(n%3)*.034,z=.31+.041*(n%5),x=Math.sqrt(Math.max(.005,1-y*y-z*z)),scale=1/Math.hypot(y,z,1+x);
-  return [0,-z*scale,y*scale,(1+x)*scale];
+  if(n<=8)return [0,0,0,1];
+  // Start with the stripe visible from both top-down and perspective cameras.
+  const halfTilt=-.46+(n%3)*.13;
+  return [Math.sin(halfTilt),0,0,Math.cos(halfTilt)];
 }
 function newBall(n,x,z){return {n,x,z,vx:0,vz:0,sx:0,sz:0,side:0,dead:false,drop:0,px:x,pz:z,q:initialRotation(n)}}
 function shuffled(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(rand(0,i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function rackBalls(rule='eight'){
   if(rule!=='eight'){
-    const rest=shuffled([2,3,4,5,6,7,8]),nums=[1,rest[0],rest[1],rest[2],9,...rest.slice(3)], balls=[newBall(0,-.92,0)];let i=0;
+    const rest=shuffled([2,3,4,5,6,7,8]),nums=[1,rest[0],rest[1],rest[2],9,...rest.slice(3)], balls=[newBall(0,HEAD_X,0)];let i=0;
     for(let row=0;row<5;row++){const width=3-Math.abs(2-row);for(let j=0;j<width;j++)balls.push(newBall(nums[i++],.60+row*D*.869,(j-(width-1)*.5)*D*1.003));}return balls;
   }
   const a=shuffled([1,2,3,4,5,6,7]),b=shuffled([9,10,11,12,13,14,15]);
   const left=a.shift(),right=b.shift(),other=shuffled([...a,...b]);const numbers=[other.shift(),other.shift(),other.shift(),other.shift(),8,other.shift(),other.shift(),other.shift(),other.shift(),other.shift(),left,...other,right];
-  const balls=[newBall(0,-.92,0)];let n=0;for(let row=0;row<5;row++)for(let j=0;j<=row;j++)balls.push(newBall(numbers[n++],.60+row*D*.869,(j-row*.5)*D*1.003));return balls;
+  const balls=[newBall(0,HEAD_X,0)];let n=0;for(let row=0;row<5;row++)for(let j=0;j<=row;j++)balls.push(newBall(numbers[n++],.60+row*D*.869,(j-row*.5)*D*1.003));return balls;
 }
 let audio=null,master=null,wet=null,voiceCount=0,rollGain=null,fxOffset=0;
 const contactAudio=new Map();
@@ -396,7 +409,7 @@ function layoutQuality(layout,targets){
 const tactics={pot:'进攻进袋',position:'进攻＋走位',safety:'安全球',kick:'借库解球',bank:'翻袋进攻',break:'开球'};
 function* planAI(){
   const balls=match.balls,g=match.groups[1],rotation=match.rule!=='eight',allowed=targetsFor(balls,g),level=prefs.level,cue=balls[0],style=styles[prefs.style];
-  if(match.break)return {angle:angleToDefault()+rand(-.006,.006),power:[84,91,96,98][level],kind:'break'};
+  if(match.break)return {angle:breakAngle(balls,match.breakPosition)+rand(-.0009,.0009),power:[84,91,96,98][level],kind:'break'};
   const pots=aimingCandidates(balls,allowed,level>=2),safe=safetyCandidates(balls,allowed,level),kicks=kickCandidates(balls,allowed),legal=allowed.map(b=>b.n);
   const target=allowed[0],fallback={angle:target?Math.atan2(target.z-cue.z,target.x-cue.x):0,power:37,kind:'safety'};
   const shotKind=c=>c.bank?'bank':'pot';let picked=fallback,score=-Infinity;
@@ -471,7 +484,7 @@ function finishLab(s){
 
 // The UI, rule engine and drag input share a single match state machine.
 let drag=null, hovered=false, lastTouch=0;
-const fire=$('fire'), pullpad=$('pullpad'), confirm=$('confirm-dialog'), help=$('help-dialog');
+const fire=$('fire'), pullpad=$('pullpad'), breakButton=$('break-position'), stage=$('stage'), confirm=$('confirm-dialog'), help=$('help-dialog');
 const clock=()=>performance.now();
 let localSeats=read('seats',2)===3?3:2,pointGoal=[11,21,31].includes(read('goal',21))?read('goal',21):21;
 function nameFor(i){return match.mode==='ai'?(i?'电脑':'你'):match.mode==='local'?`玩家 ${i+1}`:'你'}
@@ -493,7 +506,6 @@ function renderSettings(){
   $('lab-actions').hidden=$('lab-readout').hidden=!match.lab;
   $('level-desc').textContent=descriptions[prefs.level];$('ai-style').value=prefs.style;$('challenge').hidden=match.mode!=='ai';
   $('guide').setAttribute('aria-pressed',String(prefs.guide));
-  const nums=$('number-mode');nums.dataset.mode=prefs.numbers;nums.textContent=prefs.numbers==='auto'||renderer?.fallback?'球号':prefs.numbers==='clear'?'清晰':'球面';nums.title=renderer?.fallback?'2D 模式始终显示清晰球号':`球号显示：${numberNames[prefs.numbers]}（点击切换）`;nums.setAttribute('aria-label',nums.title);
   $('view').setAttribute('aria-pressed',String(prefs.view!==0));$('view').setAttribute('aria-label',`切换视角：${viewNames[prefs.view]}`);$('view').querySelector('span').textContent=viewNames[prefs.view];
   renderSpin();
   $('sound').setAttribute('aria-pressed',String(prefs.mute));$('sound').setAttribute('aria-label',prefs.mute?'开启声音':'静音');$('sound').querySelector('use').setAttribute('href',prefs.mute?'#i-mute':'#i-sound');
@@ -512,10 +524,10 @@ function updateUI(){
     card.hidden=i>=match.seats;card.classList.toggle('active',p!=='done'&&i===match.turn);
     card.querySelector('.pname').textContent=nameFor(i);card.querySelector('.avatar use').setAttribute('href',i===1&&match.mode==='ai'?'#i-cpu':'#i-user');
     card.querySelector('.pbadge').textContent=i===match.turn&&p!=='done'?(practice?'练习中':p==='thinking'?'思考中':'当前回合'):'';
-    line.classList.toggle('balls',!!g&&!rotation);line.classList.toggle('scoreline',points);line.replaceChildren();line.removeAttribute('aria-label');line.removeAttribute('title');
+    line.classList.toggle('balls',!!g&&!rotation);line.classList.toggle('scoreline',points);line.classList.toggle('rotation-target',rotation&&!points&&!practice);line.replaceChildren();line.removeAttribute('aria-label');line.removeAttribute('title');
     if(practice)line.textContent=`已进球 ${match.balls.filter(b=>b.n&&b.dead).length} / ${match.balls.length-1}`;
     else if(points)line.textContent=`${match.scores[i]??0} / ${match.goal} 分`;
-    else if(rotation)line.textContent=target?`目标：${target.n} 号球`:'球局结束';
+    else if(rotation)line.textContent=target?`先碰 ${ballName(target.n)}`:'球局结束';
     else if(g){const count=own.filter(live).length;line.setAttribute('aria-label',`${groupName(g)}，剩余 ${count} 颗`);line.title=`${groupName(g)} · 剩余 ${count} 颗`;if(!count)line.textContent='目标：黑 8';else for(const b of own){const el=document.createElement('i');el.className='tiny-ball'+(g===2?' stripe':'')+(b.dead?' sunk':'');el.style.setProperty('--ball',colorOf(b.n));el.setAttribute('aria-hidden','true');line.append(el)}}
     else {line.textContent='尚未分组';line.removeAttribute('aria-label');line.removeAttribute('title');}
   }
@@ -525,22 +537,30 @@ function updateUI(){
   $('status').dataset.type=type;
   $('lab-demo').disabled=$('lab-replay').disabled=!!match.lab&&!enable;$('lab-readout').textContent=match.labResult||'';
   fire.disabled=!enable;pullpad.disabled=!enable;$('nudges').hidden=!enable;$('spin-pad').disabled=$('spin-reset').disabled=!enable;
-  fire.querySelector('span').textContent=p==='placing'?'请先摆放母球':p==='thinking'?'电脑瞄准中…':p==='striking'||p==='moving'?'本杆进行中…':p==='done'?'本局结束':'快速击球';
+  const canMoveBreak=enable&&match.break;
+  stage.dataset.break=canMoveBreak?'yes':'no';breakButton.hidden=!canMoveBreak;
+  if(canMoveBreak){const name=breakPositions[match.breakPosition].name;breakButton.textContent=`开球位：${name}`;breakButton.setAttribute('aria-label',`开球位：${name}，点击换位`);}
+  fire.querySelector('span').textContent=p==='placing'?'请先摆放母球':p==='thinking'?'电脑瞄准中…':p==='striking'||p==='moving'?'本杆进行中…':p==='done'?'本局结束':match.break?'开球':'快速击球';
   let mouse='移动鼠标瞄准 · 向后拖杆，松手击球',touch='轻触球桌瞄准 · 向后拖杆，松手击球';
   if(p==='placing')mouse=touch='在空位点击，摆放母球';
   else if(p==='moving'||p==='striking')mouse=touch='等待球停稳';
   else if(p==='thinking')mouse=touch='电脑正在选择击球路线';
   else if(prefs.view===2&&!renderer.fallback)mouse=touch='左右拖动瞄准 · 按杆向下拉';
+  else if(match.break){mouse='点击改瞄 · 向后拉杆';touch='轻触瞄准 · 向后拉杆';}
   else if(match.locked)mouse='已锁定 · 拖杆击球，或点桌面重新瞄准';
   if(match.phase==='aim'&&match.mode==='practice'&&prefs.view!==2)touch='轻触瞄准 · 拉杆击球';
   $('hint-mouse').textContent=mouse;$('hint-touch').textContent=touch;updatePower();
 }
 function clearDrag(){if(!drag)return;const d=drag;drag=null;if(d.el.hasPointerCapture?.(d.id))d.el.releasePointerCapture(d.id);canvas.dataset.pull='no';pullpad.classList.remove('dragging');}
+function setBreakPosition(index){
+  const {z}=breakPositions[index];match.breakPosition=index;match.balls[0]=newBall(0,HEAD_X,z);
+  match.angle=breakAngle(match.balls,index);match.locked=true;match.pull=0;positionCueCamera();
+}
 function newRack(mode=match.mode,rule=match.rule,keepPoints=false,note=''){
   clearDrag();aiAction=null;accumulator=0;hovered=false;
   const seats=mode==='practice'?1:mode==='local'&&rule==='points'?localSeats:2,turn=keepPoints?(match.breaker+1)%seats:0;
-  match={mode,rule,seats,goal:pointGoal,scores:keepPoints?match.scores:Array(seats).fill(0),rack:match.mode===mode&&match.rule===rule?match.rack+1:1,balls:rackBalls(rule),groups:Array(seats).fill(0),turn,breaker:turn,break:true,phase:'aim',angle:0,pull:0,locked:false,shots:0,shot:null,preview:null,eye:null};prefs.spin={x:0,y:0};positionCueCamera();
-  $('ending').hidden=true;rollSound(0);setStatus(`${nameFor(turn)}来开球`,note||'已对准球堆；向后拉杆，松手开球。');renderSettings();
+  match={mode,rule,seats,goal:pointGoal,scores:keepPoints?match.scores:Array(seats).fill(0),rack:match.mode===mode&&match.rule===rule?match.rack+1:1,balls:rackBalls(rule),groups:Array(seats).fill(0),turn,breaker:turn,break:true,phase:'aim',angle:0,pull:0,locked:false,shots:0,shot:null,preview:null,eye:null};prefs.spin={x:0,y:0};setBreakPosition((match.rack-1)%breakPositions.length);
+  $('ending').hidden=true;rollSound(0);setStatus(`${nameFor(turn)}来开球`,note||'已瞄准球堆头球；可换开球位，或直接开球。');renderSettings();
   if(aiTurn())ready(note||'轮到电脑开球。');else updateUI();requestFrame();
 }
 function legalPlace(x,z){return Math.abs(x)<L-R-.026&&Math.abs(z)<W-R-.026&&pockets.every(p=>Math.hypot(p.x-x,p.z-z)>p.r+R*.9)&&match.balls.every(b=>!b.n||b.dead||Math.hypot(b.x-x,b.z-z)>D+.006);}
@@ -565,7 +585,7 @@ function ready(note,pickup=false){
   if(pickup){const cue=match.balls[0];cue.dead=true;cue.drop=0;
     if(aiTurn()){putCue(...choosePlacement(true));}
     else {match.phase='placing';match.eye=null;const [x,z]=choosePlacement(false);match.preview={x,z,ok:true};positionCueCamera();setStatus(`${who}可摆放母球`,`${note}。点击空位摆球。`,'warn');updateUI();return;}}
-  match.angle=angleToDefault();match.eye=null;
+  match.angle=match.break?breakAngle(match.balls,match.breakPosition):angleToDefault();match.eye=null;
   if(!aiTurn())match.phase='aim';positionCueCamera();
   if(aiTurn()){match.phase='thinking';aiAction={when:clock()+520,plan:null};setStatus('电脑回合',note||'正在观察球局。',pickup?'warn':'ready');}
   else {
@@ -677,13 +697,13 @@ function traceAim(){const c=match.balls[0],angle=cueDeflection(match.angle,prefs
 }
 const VS=`attribute vec3 aPos,aNormal;attribute vec2 aUv;uniform mat4 uM,uVP;varying vec3 p,n;varying vec2 uv;void main(){vec4 w=uM*vec4(aPos,1.);p=w.xyz;n=mat3(uM)*aNormal;uv=aUv;gl_Position=uVP*w;}`;
 const FS=`precision mediump float;
-varying vec3 p,n;varying vec2 uv;uniform vec3 uColor,uEye;uniform sampler2D uAtlas;uniform float uKind,uFade,uNumber;
+varying vec3 p,n;varying vec2 uv;uniform vec3 uColor,uEye;uniform sampler2D uMark;uniform float uKind,uFade,uStripe;
 float pocket(vec2 q){vec2 a=abs(q);return min(length(a-vec2(1.619,.821))-.091,length(vec2(q.x,a.y-.847))-.086);}
 float hash(vec2 q){return fract(sin(dot(q,vec2(127.1,311.7)))*4375.127);}
 void main(){
   float kind=uKind;vec3 base=uColor;float alpha=uFade;
   if(kind==5.){gl_FragColor=vec4(base,alpha);return;}
-  if(kind==9.){vec4 ink=texture2D(uAtlas,vec2(uv.x,1.-uv.y)*.25);if(ink.a<.025)discard;gl_FragColor=vec4(ink.rgb,ink.a*alpha);return;}
+  if(kind==9.){vec4 ink=texture2D(uMark,vec2(uv.x,1.-uv.y));if(ink.a<.025)discard;gl_FragColor=vec4(ink.rgb,ink.a*alpha);return;}
   if(kind==6.||kind==7.){if(kind==6.&&(pocket(p.xz)<0.||abs(p.x)>1.66||abs(p.z)>.86))discard;float f=length(uv*2.-1.);if(f>1.)discard;gl_FragColor=vec4(base,(1.-smoothstep(.10,1.,f))*alpha);return;}
   vec3 N=normalize(n),V=normalize(uEye-p),K=normalize(vec3(-.36,1.,.45)),J=normalize(vec3(.66,.3,-.65));
   float key=max(0.,dot(N,K)),rim=max(0.,dot(N,J)),hi=max(0.,dot(N,normalize(K+V))),hi2=max(0.,dot(N,normalize(J+V)));
@@ -704,17 +724,7 @@ void main(){
   if(kind==12.){float a=fract(uv.y*78.+uv.x*12.),b=fract(uv.x*24.-uv.y*72.);base*=.65+.28*smoothstep(.12,.70,a)+.16*smoothstep(.2,.78,b);}
   if(kind==3.){
     float stripe=1.-smoothstep(.219,.225,abs(uv.y-.5));
-    base=mix(base,vec3(.944,.936,.88),step(8.5,uNumber)*(1.-stripe));
-    // Two antipodal labels share the ball's own surface coordinates and rotate with it.
-    if(uNumber>.5){
-      float phi=(fract(uv.x*2.+.5)-.5)*3.141593,theta=uv.y*3.141593;
-      vec2 plate=vec2(-sin(phi)*sin(theta),-cos(theta))/.504+.5;
-      if(uv.x>.25&&uv.x<.75)plate=1.-plate;
-      if(max(abs(plate.x-.5),abs(plate.y-.5))<.49){
-        vec2 tile=vec2(mod(uNumber,4.),floor(uNumber*.25));vec4 mark=texture2D(uAtlas,(tile+plate)*.25);
-        base=mix(base,mark.rgb,mark.a);
-      }
-    }
+    base=mix(base,vec3(.944,.936,.88),uStripe*(1.-stripe));
   }
   float ambient=kind==3.?.53:.52;vec3 col=base*(ambient+key*.59+rim*.16);
   float shine=kind==3.?.34:kind==15.?.53:(kind==4.||kind==18.)?.19:kind==2.?.081:kind==12.?.046:.024;
@@ -729,23 +739,17 @@ function createGL(c){
   const gl=c.getContext('webgl',{alpha:true,antialias:true,premultipliedAlpha:false,preserveDrawingBuffer:false});if(!gl)throw Error('WebGL unavailable');
   function shader(type,src){const sh=gl.createShader(type);gl.shaderSource(sh,src);gl.compileShader(sh);if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(sh));return sh;}
   const pr=gl.createProgram();gl.attachShader(pr,shader(gl.VERTEX_SHADER,VS));gl.attachShader(pr,shader(gl.FRAGMENT_SHADER,FS));gl.linkProgram(pr);if(!gl.getProgramParameter(pr,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(pr));gl.useProgram(pr);
-  const a=['aPos','aNormal','aUv'].map(k=>gl.getAttribLocation(pr,k)),u=Object.fromEntries(['M','VP','Color','Eye','Atlas','Kind','Fade','Number'].map(k=>[k,gl.getUniformLocation(pr,'u'+k)]));
+  const a=['aPos','aNormal','aUv'].map(k=>gl.getAttribLocation(pr,k)),u=Object.fromEntries(['M','VP','Color','Eye','Mark','Kind','Fade','Stripe'].map(k=>[k,gl.getUniformLocation(pr,'u'+k)]));
   for(const i of a)gl.enableVertexAttribArray(i);
   gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.enable(gl.BLEND);gl.blendFuncSeparate(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA,gl.ONE,gl.ONE_MINUS_SRC_ALPHA);gl.clearColor(0,0,0,0);
-  const atlas=document.createElement('canvas');atlas.width=atlas.height=512;const ctx=atlas.getContext('2d');ctx.scale(2,2);
+  const mark=document.createElement('canvas');mark.width=mark.height=128;const ctx=mark.getContext('2d');ctx.scale(2,2);
   ctx.fillStyle='#d6be85';ctx.font='800 13px Arial';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('黑man',32,24);ctx.fillStyle='#a59064';ctx.font='700 8px Arial';ctx.fillText('POOL CLUB',32,42);
-  for(let i=1;i<=15;i++){
-    const x=(i%4)*64+32,y=Math.floor(i/4)*64+32;
-    ctx.beginPath();ctx.arc(x,y,28,0,TAU);ctx.fillStyle='#f5efda';ctx.fill();ctx.strokeStyle='#d7ceb4';ctx.lineWidth=.9;ctx.stroke();
-    ctx.fillStyle='#161916';ctx.font=`900 ${i>=10?34:40}px Arial`;ctx.fillText(String(i),x,y+1);
-    if(i===6||i===9)ctx.fillRect(x-8,y+17,16,2);
-  }
-  const tex=gl.createTexture();gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,tex);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,atlas);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.generateMipmap(gl.TEXTURE_2D);gl.uniform1i(u.Atlas,0);
+  const tex=gl.createTexture();gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,tex);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,mark);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.generateMipmap(gl.TEXTURE_2D);gl.uniform1i(u.Mark,0);
   function upload(verts){const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(verts),gl.STATIC_DRAW);return {buf,count:verts.length/8};}
   let current=null;const palette=new Map(),ballsColors=Array.from({length:16},(_,i)=>rgb(colorOf(i)));
-  function draw(mesh,m,color,kind=0,fade=1,num=0){if(current!==mesh){current=mesh;gl.bindBuffer(gl.ARRAY_BUFFER,mesh.buf);gl.vertexAttribPointer(a[0],3,gl.FLOAT,false,32,0);gl.vertexAttribPointer(a[1],3,gl.FLOAT,false,32,12);gl.vertexAttribPointer(a[2],2,gl.FLOAT,false,32,24);}
+  function draw(mesh,m,color,kind=0,fade=1,stripe=0){if(current!==mesh){current=mesh;gl.bindBuffer(gl.ARRAY_BUFFER,mesh.buf);gl.vertexAttribPointer(a[0],3,gl.FLOAT,false,32,0);gl.vertexAttribPointer(a[1],3,gl.FLOAT,false,32,12);gl.vertexAttribPointer(a[2],2,gl.FLOAT,false,32,24);}
     if(typeof color==='string'){if(!palette.has(color))palette.set(color,rgb(color));color=palette.get(color);}
-    gl.uniformMatrix4fv(u.M,false,m);gl.uniform3fv(u.Color,color);gl.uniform1f(u.Kind,kind);gl.uniform1f(u.Fade,fade);gl.uniform1f(u.Number,num);gl.drawArrays(gl.TRIANGLES,0,mesh.count);
+    gl.uniformMatrix4fv(u.M,false,m);gl.uniform3fv(u.Color,color);gl.uniform1f(u.Kind,kind);gl.uniform1f(u.Fade,fade);gl.uniform1f(u.Stripe,stripe);gl.drawArrays(gl.TRIANGLES,0,mesh.count);
   }
   const face=(out,p0,p1,p2,n=norm(cross(sub(p1,p0),sub(p2,p0))),uvs=[[0,0],[1,0],[1,1]])=>{[p0,p1,p2].forEach((p,i)=>out.push(...p,...n,...uvs[i]));};
   function quad(out,p0,p1,p2,p3,n){face(out,p0,p1,p2,n);face(out,p0,p2,p3,n,[[0,0],[1,1],[0,1]]);}
@@ -846,10 +850,11 @@ function createGL(c){
     for(const [m,col,k] of geometry)draw(m,ident,col,k);
     gl.depthMask(false);
     for(const b of match.balls)if(!b.dead){draw(patch,model([b.x+.015,.001,b.z-.018],[R*1.68,0,0],[0,1,0],[0,0,R*1.54]),'#03110a',6,.76);}
+    if(presentation.target){const b=presentation.target;for(const size of [1.52,1.65])flatRing(b.x,b.z,R*size,R,TARGET_RING,1);}
     if(presentation.halo){const c=match.balls[0];flatRing(c.x,c.z,R*1.38,.003,'#ccffa9',.68);}
     if(presentation.aim){const q=presentation.aim,y=R*.92,limit=Math.min(q.dist,4);for(let d=R*1.23;d<limit;d+=.067){const e=Math.min(d+.032,limit);segment(q.c.x+d*q.dx,q.c.z+d*q.dz,q.c.x+e*q.dx,q.c.z+e*q.dz,y,.0054,'#edf9df',.80);}if(q.target){flatRing(q.x,q.z,R,y,'#edf9df',.64);const d=norm([q.target.x-q.x,0,q.target.z-q.z]),n=.255;segment(q.target.x,q.target.z,q.target.x+d[0]*n,q.target.z+d[2]*n,y,.006,'#b8f689',.86);}else if(q.bounce){flatRing(q.x,q.z,R*.68,y,'#a2e8d6',.67);segment(q.x,q.z,q.bounce.x,q.bounce.z,y,.006,'#a2e8d6',.77);}}
     gl.depthMask(true);
-    for(const b of match.balls){if(b.dead&&!b.drop)continue;const t=b.dead?1-b.drop:0,y=R-t*.12,r=R*(1-t*.31);draw(sphere,sphereModel(lerpArr(b,t,y),r,b.q),ballsColors[b.n],3,1,b.n);}
+    for(const b of match.balls){if(b.dead&&!b.drop)continue;const t=b.dead?1-b.drop:0,y=R-t*.12,r=R*(1-t*.31);draw(sphere,sphereModel(lerpArr(b,t,y),r,b.q),ballsColors[b.n],3,1,b.n>8?1:0);}
     if(match.phase==='placing'&&match.preview){const {x,z,ok}=match.preview;gl.depthMask(false);flatRing(x,z,R*1.29,.004,ok?'#b9f58a':'#ffc681',.96);draw(sphere,sphereModel([x,R,z],R,[0,0,0,1]),ok?'#e3f9d4':'#ff9b76',3,.62);gl.depthMask(true);}
     if(presentation.cue){
       const cu=presentation.cue,axis=norm(sub(cu.back,cu.tip)),right=norm(cross(axis,[0,1,0])),m=model(cu.tip,right,axis,cross(right,axis));
@@ -875,9 +880,10 @@ function create2D(c){
     line(pt(-.92,-.77),pt(-.92,.77),Math.max(.7,f*.004),'#9edbb72b');
     for(const p of pockets){const [x,y]=pt(p.x,p.z);disk(x,y,(p.r+.013)*f,'#3c4d41');disk(x,y,p.r*f,'#050d09');}
     for(const s of [-1,1])for(const x of [-1.2,-.8,-.4,.4,.8,1.2]){const z=s*.936;ctx.fillStyle='#d0b980';ctx.beginPath();ctx.moveTo(...pt(x-.022,z));ctx.lineTo(...pt(x,z-.011));ctx.lineTo(...pt(x+.022,z));ctx.lineTo(...pt(x,z+.011));ctx.fill();}
+    if(v.target){ctx.beginPath();ctx.arc(...pt(v.target.x,v.target.z),f*R*1.55,0,TAU);ctx.strokeStyle=TARGET_RING;ctx.lineWidth=Math.max(1.5,f*.009);ctx.stroke();}
     if(v.halo){const q=match.balls[0];ctx.beginPath();ctx.arc(...pt(q.x,q.z),f*R*1.42,0,TAU);ctx.strokeStyle='#c2f59d';ctx.lineWidth=1;ctx.stroke();}
     if(v.aim){const q=v.aim,a=pt(q.c.x+q.dx*R,q.c.z+q.dz*R),b=pt(q.x,q.z);ctx.setLineDash([f*.034,f*.033]);line(a,b,Math.max(1,f*.006),'#f3fbe7c7');ctx.setLineDash([]);if(q.target){ctx.beginPath();ctx.arc(...b,f*R,0,TAU);ctx.strokeStyle='#edf9dfaa';ctx.stroke();const k=norm([q.target.x-q.x,0,q.target.z-q.z]);line(pt(q.target.x,q.target.z),pt(q.target.x+k[0]*.26,q.target.z+k[2]*.26),Math.max(1,f*.008),'#b9f58a');}else if(q.bounce)line(b,pt(q.bounce.x,q.bounce.z),Math.max(1,f*.008),'#a2e8d6');}
-    function ball(num,x,z,s=1,opacity=1,invalid=false){const [a,b]=pt(x,z),r=R*f*s;ctx.globalAlpha=opacity;disk(a+r*.26,b+r*.31,r*1.11,'#071f15a8');ctx.save();ctx.beginPath();ctx.arc(a,b,r,0,TAU);ctx.clip();disk(a,b,r,invalid?'#ed8d72':num>8?'#eee9da':colorOf(num));if(num>8){ctx.fillStyle=colorOf(num);ctx.fillRect(a-r,b-r*.53,2*r,1.06*r);}if(num){disk(a+r*.025,b-r*.02,r*.52,'#f3f0e4');ctx.fillStyle='#191e1b';ctx.font=`bold ${Math.max(5,r*.79)}px Arial`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(String(num),a,b+r*.02);}const g=ctx.createRadialGradient(a-r*.35,b-r*.46,r*.045,a,b,r*1.05);g.addColorStop(0,'#fff7');g.addColorStop(.5,'#fff0');g.addColorStop(.82,'#0002');g.addColorStop(1,'#0008');disk(a,b,r,g);ctx.restore();ctx.globalAlpha=1;}
+    function ball(num,x,z,s=1,opacity=1,invalid=false){const [a,b]=pt(x,z),r=R*f*s;ctx.globalAlpha=opacity;disk(a+r*.26,b+r*.31,r*1.11,'#071f15a8');ctx.save();ctx.beginPath();ctx.arc(a,b,r,0,TAU);ctx.clip();disk(a,b,r,invalid?'#ed8d72':num>8?'#eee9da':colorOf(num));if(num>8){ctx.fillStyle=colorOf(num);ctx.fillRect(a-r,b-r*.53,2*r,1.06*r);}const g=ctx.createRadialGradient(a-r*.35,b-r*.46,r*.045,a,b,r*1.05);g.addColorStop(0,'#fff7');g.addColorStop(.5,'#fff0');g.addColorStop(.82,'#0002');g.addColorStop(1,'#0008');disk(a,b,r,g);ctx.restore();ctx.globalAlpha=1;}
     for(const b of match.balls)if(!b.dead||b.drop){const t=b.dead?1-b.drop:0;ball(b.n,lerp(b.x,b.px,t*.64),lerp(b.z,b.pz,t*.64),1-t*.36,b.dead?b.drop:1);}
     if(match.phase==='placing'&&match.preview){const {x,z,ok}=match.preview;ball(0,x,z,1,.65,!ok);}
     if(v.cue){const cu=v.cue,at=k=>{const [x,,z]=cu.at(cu.gap+k,0);return pt(x,z);};for(const [a,b,r,col] of [[0,.046,.017,'#e2e9d1'],[.047,.50,.020,'#dac091'],[.50,.70,.025,'#8c613e'],[.70,.90,.030,'#172b21'],[.90,.92,.032,'#c8a36c']])line(at(a),at(b),Math.max(2,f*r),col);}
@@ -886,29 +892,13 @@ function create2D(c){
 const sizeObserver=new ResizeObserver(()=>{resize();requestFrame()});
 function resize(){
   const r=canvas.getBoundingClientRect(),w=Math.max(100,r.width),h=Math.max(100,r.height),dpr=Math.min(2,devicePixelRatio||1);
-  const pw=Math.round(w*dpr),ph=Math.round(h*dpr);if(canvas.width!==pw||canvas.height!==ph){canvas.width=pw;canvas.height=ph;}if(labels.width!==pw||labels.height!==ph){labels.width=pw;labels.height=ph;}
+  const pw=Math.round(w*dpr),ph=Math.round(h*dpr);if(canvas.width!==pw||canvas.height!==ph){canvas.width=pw;canvas.height=ph;}
   updateCamera(w,h);
 }
 function updateCamera(w=camera?.width,h=camera?.height){if(w&&h&&renderer)camera=getCamera(w,h,match.phase==='placing'&&prefs.view===2?1:prefs.view,renderer.fallback);}
 function useFallback(){
   clearDrag();sizeObserver.unobserve(canvas);const replacement=canvas.cloneNode(false);canvas.replaceWith(replacement);canvas=replacement;renderer=create2D(canvas);
-  $('render-badge').textContent='2D · 兼容模式';prefs.view=1;$('number-mode').disabled=true;$('number-mode').title='2D 模式始终显示清晰球号';$('view').disabled=true;$('view').title='当前设备使用 2D 兼容模式';
-}
-function renderNumbers(){
-  if(!numberCtx)return;const ctx=numberCtx,cam=camera,ratio=labels.width/cam.width;ctx.setTransform(ratio,0,0,labels.height/cam.height,0,0);ctx.clearRect(0,0,cam.width,cam.height);
-  if(renderer.fallback||prefs.numbers==='surface')return;
-  const ordered=match.balls.filter(live).map(b=>({b,dist:Math.hypot(cam.from[0]-b.x,cam.from[1]-R,cam.from[2]-b.z)})).sort((a,b)=>b.dist-a.dist);
-  for(const {b} of ordered){const screen=cam.project(b.x,R,b.z),edge=cam.project(b.x+R,R,b.z),edge2=cam.project(b.x,R,b.z+R),edge3=cam.project(b.x,2*R,b.z),rad=Math.max(Math.hypot(...sub(edge,screen)),Math.hypot(...sub(edge2,screen)),Math.hypot(...sub(edge3,screen)));
-    if(screen[0]<-rad||screen[0]>cam.width+rad||screen[1]<-rad||screen[1]>cam.height+rad||rad>100)continue;
-    ctx.save();ctx.globalCompositeOperation='destination-out';ctx.beginPath();ctx.arc(...screen,rad*.85,0,TAU);ctx.fill();ctx.restore();
-    if(!b.n||rad<3)continue;
-    const v=norm(sub(cam.from,[b.x,R,b.z])),data=sphereModel([0,0,0],1,b.q),facing=Math.abs(dot(v,[data[0],data[1],data[2]]));
-    if(prefs.numbers==='auto'&&rad>=(touching?12.2:10.3)&&rad*facing>5.5)continue;
-    const normal=norm(add(v,[0,.21,0])),point=cam.project(b.x+normal[0]*R,R+normal[1]*R,b.z+normal[2]*R);
-    // On small screens, draw a minimum-size number over the projected decal for readability.
-    const r=clamp(rad*.51,3.45,9.4),gradient=ctx.createLinearGradient(point[0],point[1]-r,point[0],point[1]+r);gradient.addColorStop(0,'#fcf8e9');gradient.addColorStop(1,'#dcdcca');
-    ctx.beginPath();ctx.arc(point[0],point[1],r,0,TAU);ctx.fillStyle=gradient;ctx.fill();ctx.fillStyle='#101a17';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`800 ${r*(b.n>=10?1.29:1.48)}px system-ui`;ctx.fillText(String(b.n),point[0],point[1]+r*.065);
-  }
+  $('render-badge').textContent='2D · 兼容模式';prefs.view=1;$('view').disabled=true;$('view').title='当前设备使用 2D 兼容模式';
 }
 function initRendering(){
   try{renderer=createGL(canvas);canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();useFallback();installCanvas();sizeObserver.observe(canvas);resize();updateUI();requestFrame();},{once:true});}catch(e){console.info('Using Canvas fallback:',e.message);useFallback();}
@@ -934,10 +924,11 @@ function frame(now){
   if(match.phase==='aim'){cue=cueGeometry();if(prefs.guide)aim=traceAim();}
   else if(match.phase==='thinking'&&aiAction?.plan){const p=aiAction.plan,progress=1-clamp((aiAction.when-now)/530,0,1);cue=cueGeometry(p.power*progress);}
   else if(match.phase==='striking'){const t=clamp((now-match.strike.when)/(reduced?30:135),0,1);cue=cueGeometry(lerp(match.strike.power,-12,t*t));}
-  renderer.render(camera,{cue,aim,halo:match.phase==='aim'});renderNumbers();
+  const target=match.rule!=='eight'&&match.mode!=='practice'&&['aim','placing'].includes(match.phase)?lowest(match.balls):null;
+  renderer.render(camera,{cue,aim,target,halo:match.phase==='aim'});
   if(['striking','moving','thinking'].includes(match.phase))requestFrame();else previous=0;
 }
-function toggleView(){if(renderer.fallback)return;cancelPull();prefs.view=(prefs.view+1)%3;match.locked=false;renderSettings();resize();updateUI();requestFrame();}
+function toggleView(){if(renderer.fallback)return;cancelPull();prefs.view=(prefs.view+1)%3;if(!match.break)match.locked=false;renderSettings();resize();updateUI();requestFrame();}
 function syncFull(){
   const open=document.fullscreenElement===playGrid||fullMode;playGrid.classList.toggle('is-full',open);full.setAttribute('aria-pressed',String(open));
   const title=open?'退出全屏':'进入全屏';full.title=title+'（F）';full.setAttribute('aria-label',title);full.querySelector('use').setAttribute('href',open?'#i-exit':'#i-full');full.querySelector('.full-text').textContent=open?'退出':'全屏';
@@ -1012,9 +1003,12 @@ pullpad.addEventListener('pointermove',dragMove);pullpad.addEventListener('point
 pullpad.addEventListener('click',e=>{if(e.detail===0&&humanAim()&&!drag){match.locked=true;setPull(match.pull>=100?0:match.pull+5);updateUI();requestFrame();}});
 function nudge(amount){if(!humanAim()||drag)return;match.locked=true;match.angle+=amount;positionCueCamera();updateUI();requestFrame();}
 for(const b of $$('[data-nudge]'))b.addEventListener('click',()=>nudge(+b.dataset.nudge*.0065));
-function quick(){if(!humanAim()||drag)return;armAudio();startShot(match.angle,match.pull>=5?match.pull:match.break?90:39);}
+breakButton.addEventListener('click',()=>{
+  if(!humanAim()||!match.break||drag)return;
+  hovered=false;setBreakPosition((match.breakPosition+1)%breakPositions.length);updateUI();requestFrame();
+});
+function quick(){if(!humanAim()||drag)return;armAudio();startShot(match.angle,match.pull>=5?match.pull:match.break?BREAK_POWER:39);}
 fire.addEventListener('click',quick);
-$('number-mode').addEventListener('click',()=>{prefs.numbers=numberModes[(numberModes.indexOf(prefs.numbers)+1)%3];save('numbers',prefs.numbers);renderSettings();requestFrame();});
 $('view').addEventListener('click',toggleView);$('guide').addEventListener('click',toggleGuide);
 $('sound').addEventListener('click',()=>{prefs.mute=!prefs.mute;save('mute',prefs.mute);if(!prefs.mute)armAudio();if(master)master.gain.setTargetAtTime(prefs.mute?0:.78,audio.currentTime,.015);renderSettings();});
 $('help').addEventListener('click',()=>{cancelPull();help.showModal();});
