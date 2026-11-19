@@ -42,6 +42,8 @@
 @media(max-width:480px){.stage-label{font-size:8px;letter-spacing:.02em}.stage-head .tools{gap:3px}.stage-head .tool{padding-inline:6px}}
 .stage-foot .break-position{pointer-events:auto;flex:none;margin-left:auto;min-height:32px;padding:0 8px;white-space:nowrap;border-color:#4a644c;color:#c9f2b4}
 .stage-foot .break-position[hidden]{display:none}
+button.stage-label{white-space:nowrap;min-height:32px;touch-action:manipulation}
+button.stage-label:hover{border-color:#79a281;color:#d7f5d5}
 .player .pgroup.rotation-target{white-space:normal;line-height:1.25}
 @media(max-width:480px){.stage-foot .break-position{font-size:11px;padding-inline:6px}.stage[data-break="yes"] .stage-foot{gap:5px}.stage[data-break="yes"] .stage-hint{flex:0 1 auto}}
 </style>
@@ -78,7 +80,7 @@
   <div class="play-grid" id="play-grid">
     <section class="stage" id="stage" aria-label="台球桌">
       <div class="canvas-zone"><canvas id="table" tabindex="0" aria-label="台球桌。用指针或左右方向键瞄准，空格击球。">你的浏览器不支持 Canvas。</canvas></div>
-      <div class="stage-head"><span class="stage-label" id="render-badge">3D · TABLE 01</span><div class="tools">
+      <div class="stage-head"><button type="button" class="stage-label" id="render-badge" title="切换到 2D 兼容模式">3D · 切 2D</button><div class="tools">
         <button type="button" class="tool" id="view" aria-pressed="false" title="切换视角（V）：透视 → 俯视 → 杆后" aria-label="切换视角：透视"><svg class="icon" aria-hidden="true"><use href="#i-view"/></svg><span>透视</span></button>
         <button type="button" class="tool" id="guide" aria-pressed="true" title="显示或隐藏辅助线（G）"><svg class="icon" aria-hidden="true"><use href="#i-aim"/></svg>辅助线</button>
         <button type="button" class="tool" id="full" aria-label="进入全屏" aria-pressed="false" title="进入全屏（F）"><svg class="icon" aria-hidden="true"><use href="#i-full"/></svg><span class="full-text">全屏</span></button>
@@ -110,7 +112,7 @@
   <footer class="underbar"><div class="keys mouse-only"><span><kbd>←</kbd><kbd>→</kbd>微调瞄准</span><span><kbd>↑</kbd><kbd>↓</kbd>键盘拉杆</span><span><kbd>V</kbd>切换视角</span><span><kbd>F</kbd>全屏</span></div><span class="touch-only">点球桌瞄准；也可用备用拉杆区出杆。</span><span class="offline">OFFLINE PLAY</span></footer>
 </main>
 <dialog id="help-dialog" aria-labelledby="help-title"><div class="dialog-title"><h2 id="help-title">玩法说明</h2><button type="button" class="quiet" data-close="help-dialog" aria-label="关闭说明"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div>
-<h3 class="dialog-sub">瞄准与击球</h3><ul class="help-list"><li><strong>开球：</strong>每局轮换默认开球位。用球桌下方的「开球位」在中、左、右之间切换，球杆会重新瞄向头球，也可以手动瞄准。直接点「开球」或按 <kbd>Space</kbd> 使用默认力度，拉杆则按实际力度出杆。</li><li><strong>电脑：</strong>移动鼠标瞄准，点击锁定，再点桌面可重新瞄准。按住球杆沿杆身向后拉，拉得越远力度越大，松手即击球。<kbd>←</kbd> <kbd>→</kbd> 微调，按住 <kbd>Shift</kbd> 更精细；<kbd>↑</kbd> <kbd>↓</kbd> 键盘拉杆，<kbd>Space</kbd> 击球。杆后视角中向屏幕下方拉杆。</li><li><strong>手机：</strong>轻触球桌瞄准，按住杆身向后拖，松手击球。杆靠近屏幕边缘时，可以在「备用拉杆区」向下或向右拖，力度同样取决于拖动距离。右下方的左右小按钮可以微调。竖屏全屏时球桌会纵向显示，横屏时铺宽。</li><li><strong>辅助：</strong><kbd>V</kbd> 在透视、俯视、杆后间切换，<kbd>F</kbd> 进出全屏，<kbd>G</kbd> 开关辅助线。杆后视角请在球桌空处左右拖动瞄准。虚线和空心圈表示第一撞击点，绿色线表示目标球的初始去向；加塞瞄向库边时，浅蓝线预估母球的反弹方向。球面不标数字；九球和九球追分里，金圈标示当前必须先碰的球。</li><li><strong>击球点：</strong>点击或拖动右侧的母球来选择击球点：向上是高杆、向下是低杆、左右是左塞和右塞，可以组合。这里调整的是皮头打在母球的哪个位置，不改变球杆朝向或拉杆力度。高杆可跟球，低杆可回拉，左右塞主要改变母球撞库后的出射角。</li></ul>
+<h3 class="dialog-sub">瞄准与击球</h3><ul class="help-list"><li><strong>开球：</strong>每局轮换默认开球位。用球桌下方的「开球位」在中、左、右之间切换，球杆会重新瞄向头球，也可以手动瞄准。直接点「开球」或按 <kbd>Space</kbd> 使用默认力度，拉杆则按实际力度出杆。</li><li><strong>电脑：</strong>移动鼠标瞄准，点击锁定，再点桌面可重新瞄准。按住球杆沿杆身向后拉，拉得越远力度越大，松手即击球。<kbd>←</kbd> <kbd>→</kbd> 微调，按住 <kbd>Shift</kbd> 更精细；<kbd>↑</kbd> <kbd>↓</kbd> 键盘拉杆，<kbd>Space</kbd> 击球。杆后视角中向屏幕下方拉杆。</li><li><strong>手机：</strong>轻触球桌瞄准，按住杆身向后拖，松手击球。杆靠近屏幕边缘时，可以在「备用拉杆区」向下或向右拖，力度同样取决于拖动距离。右下方的左右小按钮可以微调。竖屏全屏时球桌会纵向显示，横屏时铺宽。</li><li><strong>辅助：</strong><kbd>V</kbd> 在透视、俯视、杆后间切换，<kbd>F</kbd> 进出全屏，<kbd>G</kbd> 开关辅助线。杆后视角请在球桌空处左右拖动瞄准。虚线和空心圈表示第一撞击点，绿色线表示目标球的初始去向；加塞瞄向库边时，浅蓝线预估母球的反弹方向。球面不标数字；九球和九球追分里，金圈标示当前必须先碰的球。球桌显示异常时，可以点击左上角切换到「2D 兼容」，不会重开球局。</li><li><strong>击球点：</strong>点击或拖动右侧的母球来选择击球点：向上是高杆、向下是低杆、左右是左塞和右塞，可以组合。这里调整的是皮头打在母球的哪个位置，不改变球杆朝向或拉杆力度。高杆可跟球，低杆可回拉，左右塞主要改变母球撞库后的出射角。</li></ul>
 <h3 class="dialog-sub">固定球位测试</h3><ul class="help-list"><li>进入「自由练习」，用「固定球位」选择项目。按「打预设杆」可复现同样的击球点、角度和力度。「重摆球位」保留你当前的击球点和力度，适合比较同一球位的左塞与右塞。摩擦参数参考实测研究（Mathavan 等，2009），袋口尺寸参考 WPA；结果为游戏模拟值，未针对某张实桌校准。</li></ul>
 <h3 class="dialog-sub">简化八球规则</h3><ul class="help-list"><li>开球进球可继续，但球桌仍开放。开球后，首次合法打进的 1–7 号或 9–15 号球决定你的花色；打进己方球就续杆。</li><li>母球入袋、没碰到球、先碰错组球或在开放球桌先碰黑 8，均算犯规。对手可在球桌上摆放母球。</li><li>清空己方花色后，下一杆合法打进黑 8 获胜。提前打进黑 8，或打进黑 8 时犯规，会输掉本局。开球进黑 8 则重摆。无需报袋，不判碰库犯规。</li><li>自由练习可以打任意球，没有输赢判罚；母球入袋后可以重新摆放。</li></ul>
 <h3 class="dialog-sub">九球与九球追分</h3><ul class="help-list"><li><strong>九球：</strong>每杆（含开球）先碰桌上最小号球，可以靠组合球打进其他号码。合法打进 9 号球（黄花色）即获胜；犯规进 9 要重摆 9 号球，对手获得自由球。不判碰库犯规，不设推杆。</li><li><strong>九球追分（本游戏积分版）：</strong>仍需先碰最小号球。1–8 号各 1 分，9 号 2 分；犯规该杆不计分，下一位拿自由球。合法进 9 后重摆一盘，积分延续、开球者轮换。先达到所选目标分获胜。「本地对战」可选 2 人或 3 人。</li></ul>
@@ -124,10 +126,10 @@ const clamp=(a,lo,hi)=>Math.max(lo,Math.min(hi,a)), lerp=(a,b,t)=>a+(b-a)*t;
 // 3.20 world units represent 2.54 m. Friction baseline: Mathavan et al. (2009),
 // DOI 10.1119/1.3157159 (measured snooker and cited pool ranges); not a fitted table profile.
 const PI=Math.PI, TAU=2*PI, R=.036, L=1.60, W=.80, D=2*R, DT=1/240, STOP=.012, METERS=2.54/3.20, GRAV=9.81/METERS, SLIDE=.20*GRAV, ROLL=.016*GRAV;
-const NOSE=D*.635, HEAD_X=-.92, BREAK_POWER=90;
+const NOSE=D*.635, HEAD_X=-.92, BREAK_POWER=94;
 // Keep all three starts on the head string. A slight cut, shown by the cue
 // and guide, avoids the same dead-center collision on every default break.
-const breakPositions=[{name:'中',z:0,cut:.0045},{name:'左',z:-.28,cut:.0045},{name:'右',z:.28,cut:-.0045}];
+const breakPositions=[{name:'中',z:0,cut:.0034},{name:'左',z:-.28,cut:.0045},{name:'右',z:.28,cut:-.0028}];
 function breakAngle(balls,position){
   const [cue,apex]=balls;
   return Math.atan2(apex.z-cue.z,apex.x-cue.x)+breakPositions[position].cut;
@@ -192,27 +194,37 @@ function rackBalls(rule='eight'){
   const left=a.shift(),right=b.shift(),other=shuffled([...a,...b]);const numbers=[other.shift(),other.shift(),other.shift(),other.shift(),8,other.shift(),other.shift(),other.shift(),other.shift(),other.shift(),left,...other,right];
   const balls=[newBall(0,HEAD_X,0)];let n=0;for(let row=0;row<5;row++)for(let j=0;j<=row;j++)balls.push(newBall(numbers[n++],.60+row*D*.869,(j-row*.5)*D*1.003));return balls;
 }
-let audio=null,master=null,wet=null,voiceCount=0,rollGain=null,fxOffset=0;
-const contactAudio=new Map();
-const audioBank=new Map();
-// Mono synthesized samples: each object has three separate force layers and two variants per layer.
-// [amplitude, frequency in Hz, decay time]; no downloaded recordings or dependencies.
+let audio=null,master=null,wet=null,voiceCount=0,rollGain=null,fxOffset=0,fxTime=null;
+const contactAudio=new Map(),audioBank=new Map(),ballHits=[];
+let audioSeed=0x6d2b79f5;
+function audioRandom(){let n=audioSeed;n^=n<<13;n^=n>>>17;n^=n<<5;audioSeed=n;return (n>>>0)/4294967296;}
+// Each material gets its own short resonances plus a band-limited contact transient.
+// [amplitude, frequency in Hz, decay in seconds]; three force layers, two variations.
 const profiles={
-  cue: {len:.096,m:[[.53,687,.006],[.21,1495,.004],[.13,2850,.0028]],noise:[2420,.0021,.66],level:.33},
-  ball:{len:.084,m:[[.55,2480,.0038],[.34,4330,.0025],[.23,6640,.0017]],noise:[4750,.0012,.58],level:.28},
-  rail:{len:.127,m:[[.48,117,.021],[.24,240,.016],[.13,510,.007]],noise:[820,.005,.47],level:.35},
-  jaw: {len:.114,m:[[.42,227,.020],[.18,532,.013],[.17,1120,.007]],noise:[1040,.009,.48],level:.26},
-  drop:{len:.184,m:[[.52,103,.036],[.28,190,.021],[.17,415,.012]],noise:[730,.017,.69],level:.37},
-  net: {len:.16,m:[[.38,80,.038],[.14,156,.024]],noise:[228,.029,.78],level:.20}
+  cue: {len:.068,m:[[.65,502,.0048],[.32,1068,.0072],[.16,2260,.0039],[.085,3470,.0021]],noise:[2920,.0019,.48],level:.44},
+  ball:{len:.058,m:[[.46,1540,.0032],[.42,2750,.0044],[.23,3930,.0028],[.13,5640,.0016]],noise:[3810,.00115,.50],level:.30},
+  rail:{len:.107,m:[[.65,171,.016],[.28,345,.011],[.14,789,.0054]],noise:[635,.0038,.40],level:.27},
+  jaw: {len:.087,m:[[.50,272,.013],[.26,655,.009],[.18,1490,.0045]],noise:[1140,.0041,.47],level:.25},
+  drop:{len:.134,m:[[.62,124,.027],[.29,241,.016],[.14,482,.009]],noise:[635,.010,.55],level:.31},
+  net: {len:.140,m:[[.43,96,.025],[.18,184,.019]],noise:[320,.020,.70],level:.17}
 };
 function impactBuffer(ctx,spec,layer,variant){
   const sr=ctx.sampleRate,n=Math.ceil(sr*spec.len),b=ctx.createBuffer(1,n,sr),out=b.getChannelData(0),[f,noiseDecay,total]=spec.noise;
-  const pitch=[.90,1,1.05][layer]+variant*.028,k=TAU*f*pitch/sr,alpha=Math.sin(k)/(2*.66),d=1+alpha,b0=alpha/d,b2=-b0,a1=-2*Math.cos(k)/d,a2=(1-alpha)/d;
-  let x1=0,x2=0,y1=0,y2=0;const part=spec.m.map(([vol,f,t],i)=>({vol:vol*(i?[.35,.74,1.20][layer]:1),f:f*pitch,t:t*[.64,.86,1.08][layer],phase:rand(-.21,.21)}));
+  const pitch=[.94,1,1.038][layer]+variant*.024,k=TAU*Math.min(f*pitch,sr*.42)/sr,alpha=Math.sin(k)/1.48,d=1+alpha,b0=alpha/d,a1=-2*Math.cos(k)/d,a2=(1-alpha)/d;
+  const noiseFade=Math.exp(-1/(sr*noiseDecay*[.76,1,1.14][layer]));
+  const part=spec.m.filter(([,freq])=>freq*pitch<sr*.46).map(([vol,f,t],i)=>{
+    const phase=(audioRandom()-.5)*.36,w=TAU*f*pitch/sr,decay=Math.exp(-1/(sr*t*[.67,.88,1.06][layer]));
+    const gain=vol*(i?[.41,.77,1.18][layer]:[.84,1,1.04][layer]);
+    return {s:gain*Math.sin(phase),c:gain*Math.cos(phase),u:Math.sin(w)*decay,v:Math.cos(w)*decay};
+  });
+  const attackSamples=sr*[.00068,.00037,.00022][layer],tailSamples=sr*.012;
+  let x1=0,x2=0,y1=0,y2=0,noise=total*[.39,.75,1.12][layer];
   for(let i=0;i<n;i++){
-    const time=i/sr,x=rand(-1,1),band=b0*x+b2*x2-a1*y1-a2*y2;x2=x1;x1=x;y2=y1;y1=band;
-    let v=band*total*[.37,.78,1.19][layer]*Math.exp(-time/(noiseDecay*[.72,1,1.13][layer]));for(const p of part)v+=p.vol*Math.sin(TAU*p.f*time+p.phase)*Math.exp(-time/p.t);
-    const attack=Math.min(1,time/[.00052,.00026,.00015][layer]),tail=Math.min(1,(spec.len-time)/.015);out[i]=v*attack*tail;
+    const x=2*audioRandom()-1,band=b0*(x-x2)-a1*y1-a2*y2;x2=x1;x1=x;y2=y1;y1=band;
+    let v=band*noise;noise*=noiseFade;
+    for(const p of part){v+=p.s;const next=p.s*p.v+p.c*p.u;p.c=p.c*p.v-p.s*p.u;p.s=next;}
+    v*=Math.min(1,i/attackSamples)*Math.min(1,(n-1-i)/tailSamples);
+    out[i]=v/(1+.30*Math.abs(v));
   }
   return b;
 }
@@ -220,30 +232,53 @@ function armAudio(){
   if(prefs.mute)return;
   try{const A=window.AudioContext||window.webkitAudioContext;if(!A)return;
     if(!audio){
-      audio=new A();const limiter=audio.createDynamicsCompressor();limiter.threshold.value=-11;limiter.knee.value=10;limiter.ratio.value=4;limiter.attack.value=.003;limiter.release.value=.11;
+      audio=new A();const limiter=audio.createDynamicsCompressor();limiter.threshold.value=-12;limiter.knee.value=9;limiter.ratio.value=4;limiter.attack.value=.002;limiter.release.value=.085;
       master=audio.createGain();master.gain.value=.78;master.connect(limiter).connect(audio.destination);
-      wet=audio.createDelay(.08);wet.delayTime.value=.028;const low=audio.createBiquadFilter(),room=audio.createGain();low.type='lowpass';low.frequency.value=1750;room.gain.value=.065;wet.connect(low).connect(room).connect(master);
-      const noise=audio.createBuffer(1,Math.ceil(audio.sampleRate*.75),audio.sampleRate),ar=noise.getChannelData(0);for(let i=0;i<ar.length;i++)ar[i]=rand(-1,1);
-      const rollBus=audio.createBufferSource();rollBus.buffer=noise;rollBus.loop=true;const lp=audio.createBiquadFilter();lp.type='lowpass';lp.frequency.value=335;rollGain=audio.createGain();rollGain.gain.value=0;rollBus.connect(lp).connect(rollGain).connect(master);rollBus.start();
+      wet=audio.createGain();const low=audio.createBiquadFilter();low.type='lowpass';low.frequency.value=2100;wet.connect(low);
+      for(const [time,gain] of [[.019,.062],[.039,.026]]){const delay=audio.createDelay(.06),tap=audio.createGain();delay.delayTime.value=time;tap.gain.value=gain;low.connect(delay).connect(tap).connect(master);}
+      const noise=audio.createBuffer(1,Math.ceil(audio.sampleRate*1.1),audio.sampleRate),ar=noise.getChannelData(0);for(let i=0;i<ar.length;i++)ar[i]=2*audioRandom()-1;
+      const rollBus=audio.createBufferSource();rollBus.buffer=noise;rollBus.loop=true;const lp=audio.createBiquadFilter();lp.type='lowpass';lp.frequency.value=395;rollGain=audio.createGain();rollGain.gain.value=0;rollBus.connect(lp).connect(rollGain).connect(master);rollBus.start();
       for(const [k,spec] of Object.entries(profiles))audioBank.set(k,[0,1,2].map(layer=>[0,1].map(v=>impactBuffer(audio,spec,layer,v))));
     }
-    if(audio.state==='suspended')audio.resume().catch(()=>{});
+    if(audio.state!=='running'&&audio.state!=='closed')audio.resume().catch(()=>{});
   }catch{}
 }
-function rollSound(speed){if(rollGain&&audio.state==='running')rollGain.gain.setTargetAtTime(prefs.mute?0:clamp(speed-.26,0,3)*.0021,audio.currentTime,.055);}
+const audioReady=()=>!!(audio&&master&&!prefs.mute&&audio.state==='running');
+function rollSound(speed){if(rollGain&&audio.state==='running')rollGain.gain.setTargetAtTime(prefs.mute?0:clamp((speed-.22)/3,0,1)**.77*.0062,audio.currentTime,.050);}
 function sound(kind,force=.8,x=0,z=0,lag=0,contact=null){
-  if(!audio||!master||prefs.mute||audio.state!=='running'||voiceCount>=29)return;
-  const now=audio.currentTime+fxOffset+lag;
-  if(contact!==null){const key=kind+':'+contact,last=contactAudio.get(key)??-1;if(now-last<(kind==='ball'?.018:.027))return;contactAudio.set(key,now);}
-  const levels=kind==='cue'?[.62,2.15]:kind==='drop'||kind==='net'?[.70,1.34]:[.38,1.48];
+  if(!audioReady()||voiceCount>=(kind==='ball'?19:27))return;
+  const now=(fxTime??(audio.currentTime+.008))+fxOffset+lag;
+  if(contact!==null){const key=kind+':'+contact,last=contactAudio.get(key)??-1;if(now-last<(kind==='ball'?.023:.028))return;contactAudio.set(key,now);}
+  const levels=kind==='cue'?[.70,2.30]:kind==='drop'||kind==='net'?[.70,1.34]:[.45,1.65];
   const layer=force<levels[0]?0:force<levels[1]?1:2;
   const bank=audioBank.get(kind);if(!bank)return;
-  const src=audio.createBufferSource(),out=audio.createGain(),p=audio.createStereoPanner?.();src.buffer=bank[layer][Math.random()<.5?0:1];
+  const src=audio.createBufferSource(),out=audio.createGain(),p=audio.createStereoPanner?.();src.buffer=bank[layer][audioRandom()<.5?0:1];
   const eye=camera?.from,dist=eye?Math.hypot(x-eye[0],z-eye[2],eye[1]):2;
-  out.gain.value=clamp((force*.63)**.73,.047,1.12)*profiles[kind].level/(1+dist*.082);
-  src.playbackRate.value=rand(.969,1.031)*(1+.013*Math.min(4,force));src.connect(out);
-  if(p){p.pan.value=clamp(camera?camera.project(x,0,z)[0]/camera.width*1.5-.75:x*.43,-.82,.82);out.connect(p);p.connect(master);}else out.connect(master);
-  out.connect(wet);voiceCount++;src.onended=()=>{voiceCount--;out.disconnect();if(p)p.disconnect();};src.start(now);
+  out.gain.value=clamp(.86*Math.log1p(force*1.18),.035,1.24)*profiles[kind].level/(1+dist*.065);
+  src.playbackRate.value=(.975+audioRandom()*.050)*(1+.011*Math.min(5,force));src.connect(out);
+  if(p){p.pan.value=clamp(camera?camera.project(x,0,z)[0]/camera.width*1.34-.67:x*.43,-.73,.73);out.connect(p);p.connect(master);}else out.connect(master);
+  out.connect(wet);voiceCount++;src.onended=()=>{voiceCount--;out.disconnect();if(p)p.disconnect();};src.start(Math.max(now,audio.currentTime));
+}
+function rankBallHits(hits,group=.006){
+  if(hits.length<2)return hits;
+  const ranked=[];
+  for(let i=0;i<hits.length;){
+    const end=hits[i].time+group,contacts=new Map();let top=hits[i];
+    do{const h=hits[i++];if(h.force>(contacts.get(h.contact)??0))contacts.set(h.contact,h.force);if(h.force>top.force)top=h;}
+    while(i<hits.length&&hits[i].time<end);
+    let energy=top.force**2;
+    for(const [pair,force] of contacts)if(pair!==top.contact)energy+=.22*force**2;
+    ranked.push({...top,force:Math.min(top.force*1.26,Math.sqrt(energy))});
+  }
+  return ranked;
+}
+function flushBallHits(){
+  // A rack can register many nearly simultaneous impulses in one physics tick.
+  // Use one stronger snap for each short cluster instead of stacking harsh clicks.
+  ballHits.sort((a,b)=>a.time-b.time);
+  const time=fxOffset;fxOffset=0;
+  for(const h of rankBallHits(ballHits))sound('ball',h.force,h.x,h.z,h.time,h.contact);
+  ballHits.length=0;fxOffset=time;
 }
 function roll(b,dx,dz,side){const len=Math.hypot(dx,dz,side);if(len<1e-7)return;const t=len/(2*R),s=Math.sin(t)/len,x=dz*s,y=side*s,z=-dx*s,w=Math.cos(t);const [a,c,d,e]=b.q;b.q=[w*a+x*e+y*d-z*c,w*c+y*e+z*a-x*d,w*d+z*e+x*c-y*a,w*e-x*a-y*c-z*d];}
 function dropBall(b,p,shot,fx){
@@ -264,7 +299,7 @@ function fallEdge(p,x,z,speed){
 function step(balls,shot,dt,fx=false){
   // Substep fast breaks and pocket entries so small contacts do not tunnel.
   let max=0;for(const b of balls)if(!b.dead)max=Math.max(max,b.vx*b.vx+b.vz*b.vz);
-  const n=max>23?3:max>5.8?2:1;for(let i=0;i<n;i++){if(fx&&i)fxOffset+=dt/n;integrate(balls,shot,dt/n,fx);}if(fx&&n>1)fxOffset-=(n-1)*dt/n;
+  const n=max>72?5:max>45?4:max>23?3:max>5.8?2:1;for(let i=0;i<n;i++){if(fx&&i)fxOffset+=dt/n;integrate(balls,shot,dt/n,fx);}if(fx&&n>1)fxOffset-=(n-1)*dt/n;
 }
 function integrate(balls,shot,dt,fx){
   for(const b of balls){
@@ -315,15 +350,23 @@ function integrate(balls,shot,dt,fx){
         const tx=-nz,tz=nx,vt=(a.vx-b.vx)*tx+(a.vz-b.vz)*tz-a.side-b.side;
         const impulse=v*.969,throwImpulse=clamp(vt*.10,-impulse*.031,impulse*.031),ix=nx*impulse+tx*throwImpulse,iz=nz*impulse+tz*throwImpulse;
         a.vx-=ix;a.vz-=iz;b.vx+=ix;b.vz+=iz;a.side+=2.5*throwImpulse;b.side+=2.5*throwImpulse;
-        if(fx&&v>.052)sound('ball',v,(a.x+b.x)*.5,(a.z+b.z)*.5,pass*.001,16*a.n+b.n);
+        if(fx&&v>.052&&audioReady())ballHits.push({force:v,x:(a.x+b.x)*.5,z:(a.z+b.z)*.5,time:fxOffset+pass*.00065,contact:16*a.n+b.n});
       }
     }
     if(!overlap)break;
   }
 }
 const moving=balls=>balls.some(b=>!b.dead?(b.vx!==0||b.vz!==0||b.sx!==0||b.sz!==0||Math.abs(b.side)>.028):b.drop>0);
-function speedFor(p){return .24+6.3*(p/100)**1.35;}
-function powerFor(v){return clamp(100*(Math.max(.001,(v-.24)/6.3))**(1/1.35),5,100);}
+function speedFor(p){
+  // Leave the finesse range alone; add headroom progressively in the top 40%.
+  return .24+6.3*(p/100)**1.35+2.25*(Math.max(0,p-60)/40)**1.8;
+}
+function powerFor(v){
+  if(v<=speedFor(60))return clamp(100*(Math.max(.001,(v-.24)/6.3))**(1/1.35),5,60);
+  let lo=60,hi=100;
+  for(let i=0;i<18;i++){const p=(lo+hi)*.5;if(speedFor(p)<v)lo=p;else hi=p;}
+  return (lo+hi)*.5;
+}
 function legalTargets(balls,g){const obj=balls.filter(b=>b.n&&live(b));if(!g)return obj.filter(b=>b.n!==8);const same=obj.filter(b=>group(b.n)===g);return same.length?same:obj.filter(b=>b.n===8);}
 function onEight(balls,g){return g!==0&&!balls.some(b=>!b.dead&&group(b.n)===g);}
 function foulText(shot){if(shot.potted.includes(0))return '母球入袋';if(!shot.first)return '母球未碰到任何球';if((shot.rotation||!shot.break)&&!shot.allowed.includes(shot.first))return shot.rotation?`没有先碰 ${shot.allowed[0]} 号球`:shot.first===8?'过早碰到黑 8':'先碰到对手的球';return ''}
@@ -409,7 +452,7 @@ function layoutQuality(layout,targets){
 const tactics={pot:'进攻进袋',position:'进攻＋走位',safety:'安全球',kick:'借库解球',bank:'翻袋进攻',break:'开球'};
 function* planAI(){
   const balls=match.balls,g=match.groups[1],rotation=match.rule!=='eight',allowed=targetsFor(balls,g),level=prefs.level,cue=balls[0],style=styles[prefs.style];
-  if(match.break)return {angle:breakAngle(balls,match.breakPosition)+rand(-.0009,.0009),power:[84,91,96,98][level],kind:'break'};
+  if(match.break)return {angle:breakAngle(balls,match.breakPosition)+rand(-.0009,.0009),power:[81,86,91,94][level],kind:'break'};
   const pots=aimingCandidates(balls,allowed,level>=2),safe=safetyCandidates(balls,allowed,level),kicks=kickCandidates(balls,allowed),legal=allowed.map(b=>b.n);
   const target=allowed[0],fallback={angle:target?Math.atan2(target.z-cue.z,target.x-cue.x):0,power:37,kind:'safety'};
   const shotKind=c=>c.bank?'bank':'pot';let picked=fallback,score=-Infinity;
@@ -695,11 +738,13 @@ function traceAim(){const c=match.balls[0],angle=cueDeflection(match.angle,prefs
   if(bank&&Math.abs(prefs.spin.x)>.10){const nx=bank.nx,nz=bank.nz,tx=-nz,tz=nx,v=speedFor(match.pull||39),vn=v*(dx*nx+dz*nz),vt=v*(dx*tx+dz*tz),t=dist/Math.max(v*.85,.1),s=prefs.spin.x*v*1.34,side=Math.sign(s)*Math.max(0,(Math.abs(s)+.355)*Math.exp(-.62*t)-.355),{normal,tangent}=railImpact(vn,vt,side,bank.jaw),out=norm([nx*normal+tx*(vt-tangent),0,nz*normal+tz*(vt-tangent)]);bounce={x:x+out[0]*.25,z:z+out[2]*.25};}
   return {c,x,z,dist,dx,dz,target,bounce};
 }
-const VS=`attribute vec3 aPos,aNormal;attribute vec2 aUv;uniform mat4 uM,uVP;varying vec3 p,n;varying vec2 uv;void main(){vec4 w=uM*vec4(aPos,1.);p=w.xyz;n=mat3(uM)*aNormal;uv=aUv;gl_Position=uVP*w;}`;
-const FS=`precision mediump float;
-varying vec3 p,n;varying vec2 uv;uniform vec3 uColor,uEye;uniform sampler2D uMark;uniform float uKind,uFade,uStripe;
+const VS=`attribute vec3 aPos,aNormal;attribute vec2 aUv;uniform mat4 uM,uVP;varying MATERIAL_PRECISION vec3 p,n;varying MATERIAL_PRECISION vec2 uv;void main(){vec4 w=uM*vec4(aPos,1.);p=w.xyz;n=mat3(uM)*aNormal;uv=aUv;gl_Position=uVP*w;}`;
+const FS=`precision MATERIAL_PRECISION float;
+varying MATERIAL_PRECISION vec3 p,n;varying MATERIAL_PRECISION vec2 uv;uniform vec3 uColor,uEye;uniform sampler2D uMark;uniform float uKind,uFade,uStripe;
 float pocket(vec2 q){vec2 a=abs(q);return min(length(a-vec2(1.619,.821))-.091,length(vec2(q.x,a.y-.847))-.086);}
-float hash(vec2 q){return fract(sin(dot(q,vec2(127.1,311.7)))*4375.127);}
+// Reduce procedural coordinates before multiplying. A large dot product can
+// overflow mediump on mobile and propagate NaN through the entire material.
+float hash(vec2 q){vec2 v=fract(q*vec2(.1031,.11369));v+=dot(v,v.yx+2.19);return fract((v.x+v.y)*v.x);}
 void main(){
   float kind=uKind;vec3 base=uColor;float alpha=uFade;
   if(kind==5.){gl_FragColor=vec4(base,alpha);return;}
@@ -707,7 +752,7 @@ void main(){
   if(kind==6.||kind==7.){if(kind==6.&&(pocket(p.xz)<0.||abs(p.x)>1.66||abs(p.z)>.86))discard;float f=length(uv*2.-1.);if(f>1.)discard;gl_FragColor=vec4(base,(1.-smoothstep(.10,1.,f))*alpha);return;}
   vec3 N=normalize(n),V=normalize(uEye-p),K=normalize(vec3(-.36,1.,.45)),J=normalize(vec3(.66,.3,-.65));
   float key=max(0.,dot(N,K)),rim=max(0.,dot(N,J)),hi=max(0.,dot(N,normalize(K+V))),hi2=max(0.,dot(N,normalize(J+V)));
-  if(kind==1.){float h=pocket(p.xz);if(h<0.)discard;float grain=hash(floor(p.xz*732.))*.78+(.5+.5*sin(p.z*1131.+sin(p.x*480.)*.31))*.22;float center=1.-smoothstep(.08,1.50,length(p.xz*vec2(.52,1.)));float edge=1.-smoothstep(0.,.085,min(1.60-abs(p.x),.80-abs(p.z)));vec2 s=p.xz-vec2(-.92,0.);float head=1.-smoothstep(.001,.0023,abs(s.x));float spot=max(1.-smoothstep(.003,.007,length(s)),1.-smoothstep(.003,.007,length(p.xz-vec2(.60,0.))));base*=.86+center*.26+grain*.085-edge*.09;base*=.69+.31*smoothstep(0.,.035,h);base=mix(base,vec3(.44,.76,.59),head*.10+spot*.49);}
+  if(kind==1.){float h=pocket(p.xz);if(h<0.)discard;float grain=hash(floor(p.xz*732.))*.78+(.5+.5*sin(p.z*631.+sin(p.x*280.)*.31))*.22;float center=1.-smoothstep(.08,1.50,length(p.xz*vec2(.52,1.)));float edge=1.-smoothstep(0.,.085,min(1.60-abs(p.x),.80-abs(p.z)));vec2 s=p.xz-vec2(-.92,0.);float head=1.-smoothstep(.001,.0023,abs(s.x));float spot=max(1.-smoothstep(.003,.007,length(s)),1.-smoothstep(.003,.007,length(p.xz-vec2(.60,0.))));base*=.86+center*.26+grain*.085-edge*.09;base*=.69+.31*smoothstep(0.,.035,h);base=mix(base,vec3(.44,.76,.59),head*.10+spot*.49);}
   if(kind==18.&&pocket(p.xz)<.001)discard;
   if(kind==2.||kind==10.){if(p.y>-.160&&pocket(p.xz)<-.001)discard;
     float f=p.z*392.+sin(p.x*6.1+p.y*17.)*2.2+sin(p.x*13.7+p.z*7.9)*.49;
@@ -737,7 +782,8 @@ void main(){
 }`;
 function createGL(c){
   const gl=c.getContext('webgl',{alpha:true,antialias:true,premultipliedAlpha:false,preserveDrawingBuffer:false});if(!gl)throw Error('WebGL unavailable');
-  function shader(type,src){const sh=gl.createShader(type);gl.shaderSource(sh,src);gl.compileShader(sh);if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(sh));return sh;}
+  const precision=gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER,gl.HIGH_FLOAT)?.precision?'highp':'mediump';
+  function shader(type,src){const sh=gl.createShader(type);gl.shaderSource(sh,src.replace(/MATERIAL_PRECISION/g,precision));gl.compileShader(sh);if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(sh));return sh;}
   const pr=gl.createProgram();gl.attachShader(pr,shader(gl.VERTEX_SHADER,VS));gl.attachShader(pr,shader(gl.FRAGMENT_SHADER,FS));gl.linkProgram(pr);if(!gl.getProgramParameter(pr,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(pr));gl.useProgram(pr);
   const a=['aPos','aNormal','aUv'].map(k=>gl.getAttribLocation(pr,k)),u=Object.fromEntries(['M','VP','Color','Eye','Mark','Kind','Fade','Stripe'].map(k=>[k,gl.getUniformLocation(pr,'u'+k)]));
   for(const i of a)gl.enableVertexAttribArray(i);
@@ -842,7 +888,19 @@ function createGL(c){
   }
   function segment(x,z,u,v,y,w,color,alpha){const dx=u-x,dz=v-z,h=Math.hypot(dx,dz)||1;draw(patch,model([(x+u)/2,y,(z+v)/2],[dx/2,0,dz/2],[0,1,0],[-dz/h*w/2,0,dx/h*w/2]),color,5,alpha);}
   function flatRing(x,z,r,y,color,alpha){draw(ring,model([x,y,z],[r,0,0],[0,1,0],[0,0,r]),color,5,alpha);}
-  return {fallback:false,render(cam,presentation){
+  function clothVisible(cam){
+    // A successfully linked program can still render black on some mobile GPUs.
+    // Sample the actual felt, not the balls, immediately after the first draw.
+    const pixel=new Uint8Array(4),xs=[-1.22,-.57,.17,1.12],zs=[-.51,-.19,.43];let green=0;
+    for(const x of xs)for(const z of zs){
+      const [u,v]=cam.project(x,0,z),px=Math.floor(u*c.width/cam.width),py=c.height-1-Math.floor(v*c.height/cam.height);
+      if(px<0||px>=c.width||py<0||py>=c.height)continue;
+      pixel.fill(0);gl.readPixels(px,py,1,1,gl.RGBA,gl.UNSIGNED_BYTE,pixel);
+      const [r,g,b,a]=pixel;if(a>180&&g>48&&g>r+14&&g>b+5)green++;
+    }
+    return green>=8;
+  }
+  return {fallback:false,clothVisible,dispose(){if(!gl.isContextLost())gl.getExtension('WEBGL_lose_context')?.loseContext();},render(cam,presentation){
     gl.viewport(0,0,c.width,c.height);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.uniformMatrix4fv(u.VP,false,cam.vp);gl.uniform3fv(u.Eye,cam.from);
     gl.depthMask(false);
     draw(patch,model([.03,-.352,.09],[2.18,0,0],[0,1,0],[0,0,1.31]),'#000704',7,.45);
@@ -896,14 +954,30 @@ function resize(){
   updateCamera(w,h);
 }
 function updateCamera(w=camera?.width,h=camera?.height){if(w&&h&&renderer)camera=getCamera(w,h,match.phase==='placing'&&prefs.view===2?1:prefs.view,renderer.fallback);}
-function useFallback(){
-  clearDrag();sizeObserver.unobserve(canvas);const replacement=canvas.cloneNode(false);canvas.replaceWith(replacement);canvas=replacement;renderer=create2D(canvas);
-  $('render-badge').textContent='2D · 兼容模式';prefs.view=1;$('view').disabled=true;$('view').title='当前设备使用 2D 兼容模式';
+const renderBadge=$('render-badge');
+let checkFirst3DFrame=false;
+function replaceTableCanvas(){
+  cancelPull();sizeObserver.unobserve(canvas);const old=canvas,focused=document.activeElement===old;
+  canvas=old.cloneNode(false);old.replaceWith(canvas);if(focused)canvas.focus({preventScroll:true});
 }
-function initRendering(){
-  try{renderer=createGL(canvas);canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();useFallback();installCanvas();sizeObserver.observe(canvas);resize();updateUI();requestFrame();},{once:true});}catch(e){console.info('Using Canvas fallback:',e.message);useFallback();}
+function setRenderer(use2D,reason=''){
+  if(renderer){replaceTableCanvas();renderer.dispose?.();}
+  if(!use2D){
+    try{renderer=createGL(canvas);}
+    catch(e){console.info('Using Canvas fallback:',e.message);replaceTableCanvas();use2D=true;reason='当前设备无法启动 3D';}
+  }
+  if(use2D)renderer=create2D(canvas);
+  checkFirst3DFrame=!use2D;prefs.view=use2D?1:0;save('table-2d',use2D);
+  if(!use2D)canvas.addEventListener('webglcontextlost',e=>{if(!renderer.fallback&&e.currentTarget===canvas)setRenderer(true,'3D 画面已中断');},{once:true});
+  renderBadge.textContent=use2D?'2D · 兼容':'3D · 切 2D';
+  renderBadge.title=use2D?`${reason?reason+'；':''}点击尝试切回 3D`:'切换到 2D 兼容模式，不会重开球局';
+  renderBadge.setAttribute('aria-label',use2D?'当前使用 2D 兼容模式，点击尝试 3D':'当前使用 3D，点击切换到 2D 兼容模式');
+  $('view').disabled=use2D;$('view').title=use2D?'当前设备使用 2D 兼容模式':'切换视角（V）：透视 → 俯视 → 杆后';
   installCanvas();sizeObserver.observe(canvas);resize();
+  if(match.message){renderSettings();updateUI();requestFrame();}
 }
+function initRendering(){setRenderer(read('table-2d',false)===true);}
+renderBadge.addEventListener('click',()=>setRenderer(!renderer.fallback));
 let raf=0,previous=0;
 function requestFrame(){if(!raf)raf=requestAnimationFrame(frame)}
 function frame(now){
@@ -917,7 +991,9 @@ function frame(now){
   }
   if(match.phase==='striking'&&now-match.strike.when>=(reduced?30:135))launch();
   if(match.phase==='moving'){
-    accumulator+=elapsed;for(fxOffset=0;accumulator>=DT;fxOffset+=DT){step(match.balls,match.shot,DT,true);accumulator-=DT;}fxOffset=0;
+    fxTime=audioReady()?audio.currentTime+.008:null;
+    accumulator+=elapsed;for(fxOffset=0;accumulator>=DT;fxOffset+=DT){step(match.balls,match.shot,DT,true);accumulator-=DT;}
+    if(ballHits.length)flushBallHits();fxTime=null;fxOffset=0;
     if(!moving(match.balls))finishShot();else rollSound(match.balls.reduce((a,b)=>Math.max(a,Math.hypot(b.vx,b.vz)),0));
   }
   let cue=null,aim=null;
@@ -925,7 +1001,16 @@ function frame(now){
   else if(match.phase==='thinking'&&aiAction?.plan){const p=aiAction.plan,progress=1-clamp((aiAction.when-now)/530,0,1);cue=cueGeometry(p.power*progress);}
   else if(match.phase==='striking'){const t=clamp((now-match.strike.when)/(reduced?30:135),0,1);cue=cueGeometry(lerp(match.strike.power,-12,t*t));}
   const target=match.rule!=='eight'&&match.mode!=='practice'&&['aim','placing'].includes(match.phase)?lowest(match.balls):null;
-  renderer.render(camera,{cue,aim,target,halo:match.phase==='aim'});
+  try{
+    renderer.render(camera,{cue,aim,target,halo:match.phase==='aim'});
+    if(checkFirst3DFrame&&!document.hidden){
+      checkFirst3DFrame=false;
+      if(!renderer.clothVisible(camera))setRenderer(true,'检测到 3D 球桌显示异常');
+    }
+  }catch(e){
+    if(renderer.fallback)throw e;
+    console.info('Using Canvas fallback:',e.message);setRenderer(true,'3D 球桌显示异常');
+  }
   if(['striking','moving','thinking'].includes(match.phase))requestFrame();else previous=0;
 }
 function toggleView(){if(renderer.fallback)return;cancelPull();prefs.view=(prefs.view+1)%3;if(!match.break)match.locked=false;renderSettings();resize();updateUI();requestFrame();}
